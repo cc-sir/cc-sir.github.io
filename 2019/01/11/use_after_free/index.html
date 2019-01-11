@@ -5,17 +5,18 @@
   
   <title>Use After Free | sir</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="原理use_after_free就是其字面所表达的意思，当一个内存块被释放之后再次被使用。但是其实这里有以下几种情况:内存块被释放后，其对应的指针被设置为 NULL ， 然后再次使用，自然程序会崩溃。内存块被释放后，其对应的指针没有被设置为NULL，然后在它下一次被使用之前，没有代码对这块内存块进行修改，那么程序很有可能可以正常运转。内存块被释放后，其对应的指针没有被设置为NULL，但是在它下一">
+  <meta name="description" content="我恋你如烈酒般浓 我恨你如风如影朦一清晨这一朦胧   粉身碎骨亦不逢">
+<meta name="keywords" content="pwn-堆">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Use After Free">
 <meta property="og:url" content="https://cc-sir.github.io/2019/01/11/use_after_free/index.html">
 <meta property="og:site_name" content="sir">
-<meta property="og:description" content="原理use_after_free就是其字面所表达的意思，当一个内存块被释放之后再次被使用。但是其实这里有以下几种情况:内存块被释放后，其对应的指针被设置为 NULL ， 然后再次使用，自然程序会崩溃。内存块被释放后，其对应的指针没有被设置为NULL，然后在它下一次被使用之前，没有代码对这块内存块进行修改，那么程序很有可能可以正常运转。内存块被释放后，其对应的指针没有被设置为NULL，但是在它下一">
+<meta property="og:description" content="我恋你如烈酒般浓 我恨你如风如影朦一清晨这一朦胧   粉身碎骨亦不逢">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-11T12:41:50.268Z">
+<meta property="og:updated_time" content="2019-01-11T13:48:56.516Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Use After Free">
-<meta name="twitter:description" content="原理use_after_free就是其字面所表达的意思，当一个内存块被释放之后再次被使用。但是其实这里有以下几种情况:内存块被释放后，其对应的指针被设置为 NULL ， 然后再次使用，自然程序会崩溃。内存块被释放后，其对应的指针没有被设置为NULL，然后在它下一次被使用之前，没有代码对这块内存块进行修改，那么程序很有可能可以正常运转。内存块被释放后，其对应的指针没有被设置为NULL，但是在它下一">
+<meta name="twitter:description" content="我恋你如烈酒般浓 我恨你如风如影朦一清晨这一朦胧   粉身碎骨亦不逢">
   
     <link rel="alternative" href="/atom.xml" title="sir" type="application/atom+xml">
   
@@ -137,7 +138,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        
+                        <a href="/tags/pwn-堆/" style="font-size: 10px;">pwn-堆</a>
                     </div>
                 </section>
                 
@@ -211,7 +212,7 @@
   
     <div class="article-meta">
       <a href="/2019/01/11/use_after_free/" class="article-date">
-      <time datetime="2019-01-11T12:41:50.317Z" itemprop="datePublished">2019-01-11</time>
+      <time datetime="2019-01-11T13:48:56.626Z" itemprop="datePublished">2019-01-11</time>
 </a>
     </div>
   
@@ -234,6 +235,10 @@
         
 
         
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn-堆/">pwn-堆</a></li></ul>
+    </div>
+
         <div class="clearfix"></div>
       </div>
       
@@ -241,7 +246,9 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <hr>
+        <p>我恋你如烈酒般浓 我恨你如风如影朦<br>一清晨这一朦胧   粉身碎骨亦不逢</p>
+<a id="more"></a>
+<hr>
 <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>use_after_free就是其字面所表达的意思，当一个内存块被释放之后再次被使用。但是其实这里有以下几种情况:<br>内存块被释放后，其对应的指针被设置为 NULL ， 然后再次使用，自然程序会崩溃。<br>内存块被释放后，其对应的指针没有被设置为NULL，然后在它下一次被使用之前，没有代码对这块内存块进行修改，那么程序很有可能可以正常运转。<br>内存块被释放后，其对应的指针没有被设置为NULL，但是在它下一次使用之前，有代码对这块内存行了修改，那么当程序再次使用这块内存时，就很有可能会出现奇怪的问题。<br>而我们一般所指的 Use After Free 漏洞主要是后两种。此外，我们一般称被释放后没有被设置为 NULL 的内存指针为 dangling pointer。</p>
 <hr>
 <h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>use_after_free.cpp<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="built_in">puts</span>(<span class="string">"class A"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span>:</span> <span class="keyword">public</span> A</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="built_in">puts</span>(<span class="string">"class B"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sh</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    system(<span class="string">"sh"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> buf[<span class="number">1024</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    setvbuf(<span class="built_in">stdout</span>,<span class="number">0</span>,_IONBF,<span class="number">0</span>);</span><br><span class="line">    A *p = <span class="keyword">new</span> B();</span><br><span class="line">    <span class="keyword">delete</span> p;       <span class="comment">//删除堆p</span></span><br><span class="line">    fgets(buf,<span class="keyword">sizeof</span>(buf),<span class="built_in">stdin</span>);</span><br><span class="line">    <span class="keyword">char</span> *q = strdup(buf);</span><br><span class="line"></span><br><span class="line">    p-&gt;print();     <span class="comment">//继续使用p，触发漏洞，程序会报错</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -272,8 +279,8 @@
     <div class="copyright">
         <p><span>本文标题:</span><a href="/2019/01/11/use_after_free/">Use After Free</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 钞sir 的个人博客">钞sir</a></p>
-        <p><span>发布时间:</span>2019年01月11日 - 20时41分</p>
-        <p><span>最后更新:</span>2019年01月11日 - 20时41分</p>
+        <p><span>发布时间:</span>2019年01月11日 - 21时48分</p>
+        <p><span>最后更新:</span>2019年01月11日 - 21时48分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/01/11/use_after_free/" title="Use After Free">https://cc-sir.github.io/2019/01/11/use_after_free/</a>
             <span class="copy-path" data-clipboard-text="原文: https://cc-sir.github.io/2019/01/11/use_after_free/　　作者: 钞sir" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
