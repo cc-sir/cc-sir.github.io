@@ -3,19 +3,19 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>sir</title>
+  <title>Use After Free | sir</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="title：Use After Free 原理use_after_free就是其字面所表达的意思，当一个内存块被释放之后再次被使用。但是其实这里有以下几种情况:内存块被释放后，其对应的指针被设置为 NULL ， 然后再次使用，自然程序会崩溃。内存块被释放后，其对应的指针没有被设置为NULL，然后在它下一次被使用之前，没有代码对这块内存块进行修改，那么程序很有可能可以正常运转。内存块被释放后，其对">
+  <meta name="description" content="原理use_after_free就是其字面所表达的意思，当一个内存块被释放之后再次被使用。但是其实这里有以下几种情况:内存块被释放后，其对应的指针被设置为 NULL ， 然后再次使用，自然程序会崩溃。内存块被释放后，其对应的指针没有被设置为NULL，然后在它下一次被使用之前，没有代码对这块内存块进行修改，那么程序很有可能可以正常运转。内存块被释放后，其对应的指针没有被设置为NULL，但是在它下一">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sir">
+<meta property="og:title" content="Use After Free">
 <meta property="og:url" content="https://cc-sir.github.io/2019/01/11/use_after_free/index.html">
 <meta property="og:site_name" content="sir">
-<meta property="og:description" content="title：Use After Free 原理use_after_free就是其字面所表达的意思，当一个内存块被释放之后再次被使用。但是其实这里有以下几种情况:内存块被释放后，其对应的指针被设置为 NULL ， 然后再次使用，自然程序会崩溃。内存块被释放后，其对应的指针没有被设置为NULL，然后在它下一次被使用之前，没有代码对这块内存块进行修改，那么程序很有可能可以正常运转。内存块被释放后，其对">
+<meta property="og:description" content="原理use_after_free就是其字面所表达的意思，当一个内存块被释放之后再次被使用。但是其实这里有以下几种情况:内存块被释放后，其对应的指针被设置为 NULL ， 然后再次使用，自然程序会崩溃。内存块被释放后，其对应的指针没有被设置为NULL，然后在它下一次被使用之前，没有代码对这块内存块进行修改，那么程序很有可能可以正常运转。内存块被释放后，其对应的指针没有被设置为NULL，但是在它下一">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-11T12:04:55.239Z">
+<meta property="og:updated_time" content="2019-01-11T12:08:26.859Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sir">
-<meta name="twitter:description" content="title：Use After Free 原理use_after_free就是其字面所表达的意思，当一个内存块被释放之后再次被使用。但是其实这里有以下几种情况:内存块被释放后，其对应的指针被设置为 NULL ， 然后再次使用，自然程序会崩溃。内存块被释放后，其对应的指针没有被设置为NULL，然后在它下一次被使用之前，没有代码对这块内存块进行修改，那么程序很有可能可以正常运转。内存块被释放后，其对">
+<meta name="twitter:title" content="Use After Free">
+<meta name="twitter:description" content="原理use_after_free就是其字面所表达的意思，当一个内存块被释放之后再次被使用。但是其实这里有以下几种情况:内存块被释放后，其对应的指针被设置为 NULL ， 然后再次使用，自然程序会崩溃。内存块被释放后，其对应的指针没有被设置为NULL，然后在它下一次被使用之前，没有代码对这块内存块进行修改，那么程序很有可能可以正常运转。内存块被释放后，其对应的指针没有被设置为NULL，但是在它下一">
   
     <link rel="alternative" href="/atom.xml" title="sir" type="application/atom+xml">
   
@@ -160,7 +160,7 @@
                 
                 <section class="switch-part switch-part4">
                 
-                    <div id="js-aboutme">纯海迷、爱运动、爱交友、爱旅行、喜欢接触新鲜事物、迎接新的挑战，更爱游离于错综复杂的编码与逻辑中</div>
+                    <div id="js-aboutme">自古良君多生悲</div>
                 </section>
                 
             </div>
@@ -215,7 +215,7 @@
   
     <div class="article-meta">
       <a href="/2019/01/11/use_after_free/" class="article-date">
-      <time datetime="2019-01-11T12:04:55.293Z" itemprop="datePublished">2019-01-11</time>
+      <time datetime="2019-01-11T12:08:26.966Z" itemprop="datePublished">2019-01-11</time>
 </a>
     </div>
   
@@ -224,11 +224,28 @@
       <input type="hidden" class="isFancy">
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Use After Free
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
     <div class="article-entry" itemprop="articleBody">
       
           
         <hr>
-<h2 id="title：Use-After-Free"><a href="#title：Use-After-Free" class="headerlink" title="title：Use After Free"></a>title：Use After Free</h2><hr>
 <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>use_after_free就是其字面所表达的意思，当一个内存块被释放之后再次被使用。但是其实这里有以下几种情况:<br>内存块被释放后，其对应的指针被设置为 NULL ， 然后再次使用，自然程序会崩溃。<br>内存块被释放后，其对应的指针没有被设置为NULL，然后在它下一次被使用之前，没有代码对这块内存块进行修改，那么程序很有可能可以正常运转。<br>内存块被释放后，其对应的指针没有被设置为NULL，但是在它下一次使用之前，有代码对这块内存行了修改，那么当程序再次使用这块内存时，就很有可能会出现奇怪的问题。<br>而我们一般所指的 Use After Free 漏洞主要是后两种。此外，我们一般称被释放后没有被设置为 NULL 的内存指针为 dangling pointer。</p>
 <hr>
 <h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>use_after_free.cpp<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="built_in">puts</span>(<span class="string">"class A"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span>:</span> <span class="keyword">public</span> A</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="built_in">puts</span>(<span class="string">"class B"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sh</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    system(<span class="string">"sh"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> buf[<span class="number">1024</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    setvbuf(<span class="built_in">stdout</span>,<span class="number">0</span>,_IONBF,<span class="number">0</span>);</span><br><span class="line">    A *p = <span class="keyword">new</span> B();</span><br><span class="line">    <span class="keyword">delete</span> p;       <span class="comment">//删除堆p</span></span><br><span class="line">    fgets(buf,<span class="keyword">sizeof</span>(buf),<span class="built_in">stdin</span>);</span><br><span class="line">    <span class="keyword">char</span> *q = strdup(buf);</span><br><span class="line"></span><br><span class="line">    p-&gt;print();     <span class="comment">//继续使用p，触发漏洞，程序会报错</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -249,54 +266,18 @@
 
       
       
-        <div class="page-reward">
-          <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang">赏</a></p>
-          <div class="hide_box"></div>
-          <div class="shang_box">
-            <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
-            <div class="shang_tit">
-              <p></p>
-            </div>
-            <div class="shang_payimg">
-              <img src="/img/alipayimg.jpg" alt="扫码支持" title="扫一扫">
-            </div>
-              <div class="pay_explain"></div>
-            <div class="shang_payselect">
-              
-              
-            </div>
-            <div class="shang_info">
-              <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
-            </div>
-          </div>
-        </div>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
-        <script type="text/javascript">
-          $(".pay_item").click(function(){
-            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
-            var dataid=$(this).attr('data-id');
-            $(".shang_payimg img").attr("src","/img/"+dataid+"img.jpg");
-            $("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
-          });
-          function dashangToggle(){
-            
-            $(".hide_box").fadeToggle();
-            $(".shang_box").fadeToggle();
-          }
-        </script>
-      
     </div>
     
   </div>
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2019/01/11/use_after_free/"></a></p>
+        <p><span>本文标题:</span><a href="/2019/01/11/use_after_free/">Use After Free</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 钞sir 的个人博客">钞sir</a></p>
-        <p><span>发布时间:</span>2019年01月11日 - 20时04分</p>
-        <p><span>最后更新:</span>2019年01月11日 - 20时04分</p>
+        <p><span>发布时间:</span>2019年01月11日 - 20时08分</p>
+        <p><span>最后更新:</span>2019年01月11日 - 20时08分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2019/01/11/use_after_free/" title="">https://cc-sir.github.io/2019/01/11/use_after_free/</a>
+            <span>原始链接:</span><a class="post-url" href="/2019/01/11/use_after_free/" title="Use After Free">https://cc-sir.github.io/2019/01/11/use_after_free/</a>
             <span class="copy-path" data-clipboard-text="原文: https://cc-sir.github.io/2019/01/11/use_after_free/　　作者: 钞sir" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
@@ -323,7 +304,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#title：Use-After-Free"><span class="toc-number">1.</span> <span class="toc-text">title：Use After Free</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原理"><span class="toc-number">2.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例子"><span class="toc-number">3.</span> <span class="toc-text">例子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行结果"><span class="toc-number">4.</span> <span class="toc-text">运行结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#漏洞利用"><span class="toc-number">5.</span> <span class="toc-text">漏洞利用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#我们发现RAX的内容就是我们输入的信息，结合汇编代码可以发现，最终的call-rax这句代码将执行的我们输入的数据所指的地址的代码"><span class="toc-number">6.</span> <span class="toc-text">我们发现RAX的内容就是我们输入的信息，结合汇编代码可以发现，最终的call rax这句代码将执行的我们输入的数据所指的地址的代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EXP"><span class="toc-number">7.</span> <span class="toc-text">EXP</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#原理"><span class="toc-number">1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例子"><span class="toc-number">2.</span> <span class="toc-text">例子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行结果"><span class="toc-number">3.</span> <span class="toc-text">运行结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#漏洞利用"><span class="toc-number">4.</span> <span class="toc-text">漏洞利用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#我们发现RAX的内容就是我们输入的信息，结合汇编代码可以发现，最终的call-rax这句代码将执行的我们输入的数据所指的地址的代码"><span class="toc-number">5.</span> <span class="toc-text">我们发现RAX的内容就是我们输入的信息，结合汇编代码可以发现，最终的call rax这句代码将执行的我们输入的数据所指的地址的代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EXP"><span class="toc-number">6.</span> <span class="toc-text">EXP</span></a></li></ol>
 </div>
 <input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
 
@@ -369,21 +350,6 @@
 
 
     
-        <div id="gitments"></div>
-<script src="/js/gitment.browser.js"></script>
-<script>
-    var gitment = new Gitment({
-      id: window.location.pathname,
-      owner: 'cc-sir',
-      repo: 'cc-sir.github.io',
-      oauth: {
-        client_id: '',
-        client_secret: '',
-      },
-    })
-    gitment.render('gitments')
-</script>
-    
 
 
 
@@ -398,7 +364,7 @@
             </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/use_after_free/">use_after_free</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/hello-world/">Hello World</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/use_after_free/">Use After Free</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/hello-world/">Hello World</a></li></ul>
     <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");
