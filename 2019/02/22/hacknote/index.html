@@ -5,18 +5,18 @@
   
   <title>pwnable.tw_hacknote | sir</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一生一世一双人，一词一曲入心门一波一则一浮沉，一刀一剑一伤痕">
+  <meta name="description" content="一生一世一双人 一词一曲入心门一波一则一浮沉 一刀一剑一伤痕">
 <meta name="keywords" content="writeup">
 <meta property="og:type" content="article">
 <meta property="og:title" content="pwnable.tw_hacknote">
 <meta property="og:url" content="https://cc-sir.github.io/2019/02/22/hacknote/index.html">
 <meta property="og:site_name" content="sir">
-<meta property="og:description" content="一生一世一双人，一词一曲入心门一波一则一浮沉，一刀一剑一伤痕">
+<meta property="og:description" content="一生一世一双人 一词一曲入心门一波一则一浮沉 一刀一剑一伤痕">
 <meta property="og:locale" content="default">
 <meta property="og:updated_time" content="2019-02-22T15:02:45.305Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="pwnable.tw_hacknote">
-<meta name="twitter:description" content="一生一世一双人，一词一曲入心门一波一则一浮沉，一刀一剑一伤痕">
+<meta name="twitter:description" content="一生一世一双人 一词一曲入心门一波一则一浮沉 一刀一剑一伤痕">
   
     <link rel="alternative" href="/atom.xml" title="sir" type="application/atom+xml">
   
@@ -246,7 +246,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>一生一世一双人，一词一曲入心门<br>一波一则一浮沉，一刀一剑一伤痕</p>
+        <p>一生一世一双人 一词一曲入心门<br>一波一则一浮沉 一刀一剑一伤痕</p>
 <a id="more"></a>
 <hr>
 <h2 id="分析过程"><a href="#分析过程" class="headerlink" title="分析过程"></a>分析过程</h2><p>这是pwnable.tw上面的一道适合入门的堆利用题目，主要是考察对fastbin的申请与释放以及常见漏洞的理解；<br>首先先运行程序了解一下程序的大致内容：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">sir@sir-PC:~/desktop$ ./hacknote</span><br><span class="line">----------------------</span><br><span class="line">       HackNote       </span><br><span class="line">----------------------</span><br><span class="line"> 1. Add note          </span><br><span class="line"> 2. Delete note       </span><br><span class="line"> 3. Print note        </span><br><span class="line"> 4. Exit              </span><br><span class="line">----------------------</span><br><span class="line">Your choice :1</span><br><span class="line">Note size :16</span><br><span class="line">Content :aaaa</span><br><span class="line">Success !</span><br><span class="line">----------------------</span><br><span class="line">       HackNote       </span><br><span class="line">----------------------</span><br><span class="line"> 1. Add note          </span><br><span class="line"> 2. Delete note       </span><br><span class="line"> 3. Print note        </span><br><span class="line"> 4. Exit              </span><br><span class="line">----------------------</span><br><span class="line">Your choice :3</span><br><span class="line">Index :0</span><br><span class="line">aaaa</span><br><span class="line"></span><br><span class="line">----------------------</span><br><span class="line">       HackNote       </span><br><span class="line">----------------------</span><br><span class="line"> 1. Add note          </span><br><span class="line"> 2. Delete note       </span><br><span class="line"> 3. Print note        </span><br><span class="line"> 4. Exit              </span><br><span class="line">----------------------</span><br><span class="line">Your choice :2</span><br><span class="line">Index :0</span><br><span class="line">Success</span><br><span class="line">----------------------</span><br><span class="line">       HackNote       </span><br><span class="line">----------------------</span><br><span class="line"> 1. Add note          </span><br><span class="line"> 2. Delete note       </span><br><span class="line"> 3. Print note        </span><br><span class="line"> 4. Exit              </span><br><span class="line">----------------------</span><br><span class="line">Your choice :4</span><br></pre></td></tr></table></figure></p>
