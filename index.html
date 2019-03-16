@@ -221,52 +221,25 @@
       <input type="hidden" class="isFancy">
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/16/PE文件格式/">PE文件格式</a>
+    </h1>
+  
+
+      </header>
+      
+    
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>��- - - <br> <br> t i t l e :   P E �e�N&lt;h_<br> <br> - - - <br> <br> <br> <br> - - - <br> <br> �{�N<br> <br> - - - <br> <br> P E �e�NO(u�v/f N<em>Ns^b�0W@Wzz���@b    g�v�Nx�Tpenc��Tv^(W Nw���~b�N N</em>N�<em>‘Y�v�~�g�<br> <br> �e�N��R:N<br>NT�v:SWW( S e c t i o n ��Sb:N:S�kb��I{) �:SWW-NS+T�Nx�Tpenc�T<em>N:SWW    cu���Lu�[P��<br> <br> :SWW�l    g’Y\P�6R�/f N</em>Nޏ�~�~�g��k N<em>NWW��    gvQ���]�v^\’`��Y/f&amp;TS+T�Nx�/f&amp;T�S���S�QI{�<br> <br> <br> <br> - - - <br> <br> P E �e�N�v�gb<br> <br> - - - <br> <br> #   M S - D O S 4Y��<br> <br> �k</em>NP E �e�N��/f�N N*ND O S z�^ </em>�Y�v�vQ\O(u/f N�ez�^(WD O S NgbL��D O S 1\�S�NƋ+R�Qُ/f N<em>N    gHe�vgbL�SO�6qTЏL�’}���vM Z   h e a d e r �vD O S   s t u b �sSD O S WW�<br> <br> P E �e�N,{ N</em>NW[��1\/fM S - D O S 4Y����y:NI M A G E <em> D O S </em> H E A D E R , vQ�~�g/fُ7h�v�<br> <br> <code> </code> <code> c p p 
- 
- t y p e d e f   s t r u c t   _ I M A G E _ D O S _ H E A D E R   
- 
- { 
- 
- + 0 0 h     W O R D   e _ m a g i c ;               / /   D O S �SgbL��e�Nh��&quot; M Z &quot; 
- 
- + 0 2 h     W O R D   e _ c b l p ;                 / /   �e�N gTu��vW[��pe
- 
- + 0 4 h     W O R D   e _ c p ;                     / /   �e�Nu�pe
- 
- + 0 6 h     W O R D   e _ c r l c ;                 / /   ͑�[INCQ }*Npe
- 
- + 0 8 h     W O R D   e _ c p a r h d r ;           / /   4Y��:\�[��N�k=�:NUSMO
- 
- + 0 a h     W O R D   e _ m i n a l l o c ;         / /   @b ��v g\D��R�k
- 
- + 0 c h     W O R D   e _ m a x a l l o c ;         / /   @b ��v g&#39;YD��R�k
- 
- + 0 e h     W O R D   e _ s s ;                     / /   R�Y�vS S &lt;P��v�[OP�yϑ    �
- 
- + 1 0 h     W O R D   e _ s p ;                     / /   R�Y�vS P &lt;P
- 
- + 1 2 h     W O R D   e _ c s u m ;                 / /   !h���T
- 
- + 1 4 h     W O R D   e _ i p ;                     / /   R�Y�vI P &lt;P, D O S �NxeQ�Si p 
- 
- + 1 6 h     W O R D   e _ c s ;                     / /   R�Y�vC S &lt;P, D O S �NxeQ�Sc s 
- 
- + 1 8 h     W O R D   e _ l f a r l c ;             / /   ͑RM�h��e�N0W@W
- 
- + 1 a h     W O R D   e _ o v n o ;                 / /   ���v�S
- 
- + 1 c h     W O R D   e _ r e s [ 4 ] ;             / /   �OYuW[
- 
- + 2 4 h     W O R D   e _ o e m i d ;               / /   O E M hƋ&amp;{��v�[e _ o e m i n f o     �
- 
- + 2 6 h     W O R D   e _ o e m i n f o ;           / /   O E M �Oo</code><br> <br> + 2 8 h     W O R D   e <em> r e s 2 [ 1 0 ] ;         / /   �OYuW[<br> <br> + 3 c h     L O N G   e </em> l f a n e w ;                 / /   cTP E �e�N4Y” P E ” , 0 , 0 <br> <br> }   I M A G E <em> D O S </em> H E A D E R ; <br> <br> <code> </code> <code> 
- 
- vQ-N g:N͑���v/fe _ m a g i c �Te _ l f a n e w ; 
- 
- e _ m a g i c �v&lt;P:N5 A 4 D h �e _ l f a n e w �v&lt;PR/fc�QP E 4Y�v�e�NOP�yMOn�</code>S(u4 *NW[���<br> <br> ! [ M S - D O S 4Y��] ( h t t p s : / / c c - s i r . g i t h u b . i o / p h o t o s / P E 1 . p n g ) <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> </p>
+        <hr>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>PE文件使用的是一个平面地址空间，所有的代码和数据都合并在一起，组成了一个很大的结构；<br>文件被分为不同的区块(Section，又成为区段或节等)，区块中包含代码和数据，各个区块按页边界对齐；<br>区块没有大小限制，是一个连续结构；每一个块都有其自己的属性，如是否包含代码，是否可读可写等；</p>
+<hr>
+<h2 id="PE文件的构成"><a href="#PE文件的构成" class="headerlink" title="PE文件的构成"></a>PE文件的构成</h2><h1 id="MS-DOS头部"><a href="#MS-DOS头部" class="headerlink" title="MS-DOS头部"></a>MS-DOS头部</h1><p>每个PE文件都是以一个DOS程序开始的，其作用是一旦程序在DOS下执行，DOS就可以识别出这是一个有效的执行体，然后运行紧随的MZ header的DOS stub，即DOS块；<br>PE文件第一个字节就是MS-DOS头部，称为IMAGE_DOS_HEADER,其结构是这样的：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_DOS_HEADER</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">+<span class="number">00</span>h  WORD e_magic;       <span class="comment">// DOS可执行文件标记"MZ"</span></span><br><span class="line">+<span class="number">02</span>h  WORD e_cblp;        <span class="comment">// 文件最后页的字节数</span></span><br><span class="line">+<span class="number">04</span>h  WORD e_cp;          <span class="comment">// 文件页数</span></span><br><span class="line">+<span class="number">06</span>h  WORD e_crlc;        <span class="comment">// 重定义元素个数</span></span><br><span class="line">+<span class="number">08</span>h  WORD e_cparhdr;     <span class="comment">// 头部尺寸，以段落为单位</span></span><br><span class="line">+<span class="number">0</span>ah  WORD e_minalloc;    <span class="comment">// 所需的最小附加段</span></span><br><span class="line">+<span class="number">0</span>ch  WORD e_maxalloc;    <span class="comment">// 所需的最大附加段</span></span><br><span class="line">+<span class="number">0</span>eh  WORD e_ss;          <span class="comment">// 初始的SS值（相对偏移量）</span></span><br><span class="line">+<span class="number">10</span>h  WORD e_sp;          <span class="comment">// 初始的SP值</span></span><br><span class="line">+<span class="number">12</span>h  WORD e_csum;        <span class="comment">// 校验和</span></span><br><span class="line">+<span class="number">14</span>h  WORD e_ip;          <span class="comment">// 初始的IP值,DOS代码入口ip</span></span><br><span class="line">+<span class="number">16</span>h  WORD e_cs;          <span class="comment">// 初始的CS值,DOS代码入口cs</span></span><br><span class="line">+<span class="number">18</span>h  WORD e_lfarlc;      <span class="comment">// 重分配表文件地址</span></span><br><span class="line">+<span class="number">1</span>ah  WORD e_ovno;        <span class="comment">// 覆盖号</span></span><br><span class="line">+<span class="number">1</span>ch  WORD e_res[<span class="number">4</span>];      <span class="comment">// 保留字</span></span><br><span class="line">+<span class="number">24</span>h  WORD e_oemid;       <span class="comment">// OEM标识符（相对e_oeminfo）</span></span><br><span class="line">+<span class="number">26</span>h  WORD e_oeminfo;     <span class="comment">// OEM信息</span></span><br><span class="line">+<span class="number">28</span>h  WORD e_res2[<span class="number">10</span>];    <span class="comment">// 保留字</span></span><br><span class="line">+<span class="number">3</span>ch  LONG e_lfanew;        <span class="comment">// 指向PE文件头"PE",0,0</span></span><br><span class="line">&#125; IMAGE_DOS_HEADER;</span><br></pre></td></tr></table></figure></p>
+<p>其中最为重要的是e_magic和e_lfanew;<br>e_magic的值为5A4Dh，e_lfanew的值则是指出PE头的文件偏移位置，占用4个字节；<br><img src="https://cc-sir.github.io/photos/PE1.png" alt="MS-DOS头部"></p>
 
       
       
