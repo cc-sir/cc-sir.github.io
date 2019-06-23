@@ -248,7 +248,7 @@
           
         <p>一阵风我拿起笔 一场雨我想起你<br>这一路的风和雨 仍然找不回自己<br><a id="more"></a></p>
 <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>很多时候都是因为程序中存在循环,如果程序中不存在循环呢？在一些栈溢出中我们可以使用ROP技术劫持函数返回地址到start，同样我们可以使用格式化字符串漏洞做到这一点….</p>
-<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><p>题目:<a href="https://github.com/cc-sir/cc-sir.github.io/subject/Fmtstr_Loop.zip" target="_blank" rel="noopener">链接</a></p>
+<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><p>题目:<a href="https://github.com/cc-sir/cc-sir.github.io/blob/master/subject/Fmtstr_Loop.zip" target="_blank" rel="noopener">链接</a></p>
 <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>虽然我们写代码的时候以main函数作为程序入口，但是编译成程序的时候入口并不是main函数,而是start代码段。事实上,start代码段还会调用__libc_start_main来做一些初始化工作,最后调用main函数并在main函数结束后做一些处理;<br>所以我们可以修改fini段来修改程序的执行流程….</p>
 <p>这道题就是一个标准的格式化字符串漏洞,并且程序只可以执行一次:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sir@sir-PC:~/desktop/2$ ./pwn</span><br><span class="line">Welcome to my ctf! What<span class="string">'s your name?</span></span><br><span class="line"><span class="string">aaaa,%x,%x,%x,%x,%x</span></span><br><span class="line"><span class="string">Hello aaaa,ff82d830,2,0,61616161,252c7825</span></span><br></pre></td></tr></table></figure></p>
 <p>这道题我们的思路就是修改fini段,让程序可以执行多次,然后把printf_got的位置换为system_plt,当程序执行printf(“/bin/sh;”)就去执行system(“/bin/sh;”)了;</p>
